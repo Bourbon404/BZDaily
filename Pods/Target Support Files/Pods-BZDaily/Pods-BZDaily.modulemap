@@ -1,0 +1,6 @@
+framework module Pods_BZDaily {
+  umbrella header "Pods-BZDaily-umbrella.h"
+
+  export *
+  module * { export * }
+}
