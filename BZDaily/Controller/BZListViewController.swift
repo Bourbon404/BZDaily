@@ -8,13 +8,18 @@
 
 import UIKit
 import YogaKit
+import Alamofire
+
 class BZListViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
 
     var listTable : BZListTable?
     var listHeaderView : BZTableHeaderView?
     var naviView : BZNaviView?
+    var model : BZListModel?
     
     var listArray : Array<Any>?
+    var topArray : Array<Any>?
+    
 
     let cellID = "cell"
     let sectionID = "sectionID"
@@ -23,10 +28,21 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-   
-
         self.listHeaderView?.reloadScrollView()
+        
+        let header : HTTPHeaders = [
+            "authorization":"Bearer 1pil2HanTpum33V5hDJEIw"
+        ]
+        Alamofire.request("https://news-at.zhihu.com/api/7/stories/latest", headers: header).responseJSON { (response) in
+//            self.model = BZListModel.yy_model(withJSON: response.result.value)
+//            self.listTable?.reloadData()
+            
+            let data = response.value
+//            let dict = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! Dictionary
+//            self.listArray = dict!["top_stories"]
+//            self.topArray = dict!["stories"]
+            self.listTable?.reloadData()
+        }
     }
     
     override func loadView() {
