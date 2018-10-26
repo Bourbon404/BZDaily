@@ -1,0 +1,25 @@
+PODS:
+  - Alamofire (4.7.3)
+  - Yoga (1.9.0)
+  - YogaKit (1.9.0):
+    - Yoga (~> 1.9)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.7.3)
+  - Yoga (~> 1.9.0)
+  - YogaKit (~> 1.9.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Yoga
+    - YogaKit
+
+SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
+  YogaKit: d447a9bb808718e6f58e52a2255a8050081a3ead
+
+PODFILE CHECKSUM: 356507cef1b71994098ecdb4beff60d1bb8824f4
+
+COCOAPODS: 1.5.3

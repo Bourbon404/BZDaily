@@ -1,0 +1,6 @@
+framework module Pods_BZDailyTests {
+  umbrella header "Pods-BZDailyTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
