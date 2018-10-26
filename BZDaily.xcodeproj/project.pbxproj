@@ -23,6 +23,9 @@
 		9F9805852183318500F2A51F /* BZTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9805842183318500F2A51F /* BZTableHeaderView.swift */; };
 		9F98058B21835F1B00F2A51F /* BZNaviView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98058A21835F1B00F2A51F /* BZNaviView.swift */; };
 		9F98058D2183611E00F2A51F /* BZSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98058C2183611E00F2A51F /* BZSectionHeaderView.swift */; };
+		9F9805902183793800F2A51F /* BZListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98058F2183793800F2A51F /* BZListModel.swift */; };
+		9F9805922183794200F2A51F /* BZTopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9805912183794200F2A51F /* BZTopModel.swift */; };
+		9F9805942183794D00F2A51F /* BZStoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9805932183794D00F2A51F /* BZStoryModel.swift */; };
 		D8B037C567CBEF86DFD2E44F /* Pods_BZDaily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF0A0442D6AB2F9A40F7E81 /* Pods_BZDaily.framework */; };
 		E718C9A9A451C4D419BD743C /* Pods_BZDailyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F47D82C175BAE014D5C07835 /* Pods_BZDailyUITests.framework */; };
 /* End PBXBuildFile section */
@@ -70,6 +73,9 @@
 		9F9805842183318500F2A51F /* BZTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZTableHeaderView.swift; sourceTree = "<group>"; };
 		9F98058A21835F1B00F2A51F /* BZNaviView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZNaviView.swift; sourceTree = "<group>"; };
 		9F98058C2183611E00F2A51F /* BZSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZSectionHeaderView.swift; sourceTree = "<group>"; };
+		9F98058F2183793800F2A51F /* BZListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZListModel.swift; sourceTree = "<group>"; };
+		9F9805912183794200F2A51F /* BZTopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZTopModel.swift; sourceTree = "<group>"; };
+		9F9805932183794D00F2A51F /* BZStoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZStoryModel.swift; sourceTree = "<group>"; };
 		ACF0A0442D6AB2F9A40F7E81 /* Pods_BZDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BZDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C655C42E5152A5E8400FE02B /* Pods-BZDailyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyUITests/Pods-BZDailyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CD46363C87A83F53C5B62991 /* Pods_BZDailyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BZDailyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				9F98053C218326C800F2A51F /* AppDelegate.swift */,
+				9F98058E218378D800F2A51F /* Model */,
 				9F9805772183285400F2A51F /* View */,
 				9F9805722183282200F2A51F /* Root */,
 				9F98056D218327B900F2A51F /* Controller */,
@@ -211,6 +218,16 @@
 				9F98057A2183287F00F2A51F /* BZTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9F98058E218378D800F2A51F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9F98058F2183793800F2A51F /* BZListModel.swift */,
+				9F9805912183794200F2A51F /* BZTopModel.swift */,
+				9F9805932183794D00F2A51F /* BZStoryModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,6 +416,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BZDaily/Pods-BZDaily-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
 				"${BUILT_PRODUCTS_DIR}/YogaKit/YogaKit.framework",
 			);
@@ -407,6 +425,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YogaKit.framework",
 			);
@@ -446,14 +465,17 @@
 			files = (
 				9F98058B21835F1B00F2A51F /* BZNaviView.swift in Sources */,
 				9F98058D2183611E00F2A51F /* BZSectionHeaderView.swift in Sources */,
+				9F9805942183794D00F2A51F /* BZStoryModel.swift in Sources */,
 				9F9805792183286A00F2A51F /* BZListTable.swift in Sources */,
 				9F98057F218329DD00F2A51F /* BZScrollView.swift in Sources */,
 				9F980545218326C800F2A51F /* BZDaily.xcdatamodeld in Sources */,
 				9F98053D218326C800F2A51F /* AppDelegate.swift in Sources */,
 				9F980571218327FD00F2A51F /* BZListViewController.swift in Sources */,
+				9F9805922183794200F2A51F /* BZTopModel.swift in Sources */,
 				9F9805742183283700F2A51F /* BZView.swift in Sources */,
 				9F9805852183318500F2A51F /* BZTableHeaderView.swift in Sources */,
 				9F98057B2183287F00F2A51F /* BZTableViewCell.swift in Sources */,
+				9F9805902183793800F2A51F /* BZListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
