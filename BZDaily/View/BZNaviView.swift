@@ -7,9 +7,12 @@
 //
 
 import UIKit
-
+import YogaKit
 class BZNaviView: UIView {
 
+    var titleLabel : UILabel?
+    
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -17,5 +20,56 @@ class BZNaviView: UIView {
         // Drawing code
     }
     */
+    deinit {
 
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.titleLabel = UILabel.init()
+        self.titleLabel?.textColor = UIColor.white
+        self.titleLabel?.textAlignment = NSTextAlignment.center
+        self.addSubview(self.titleLabel!)
+
+        self.titleLabel?.text = "今日新闻"
+        
+        self.backgroundColor = UIColor.clear
+
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.titleLabel?.configureLayout(block: { (layout) in
+            layout.isEnabled = true
+            layout.marginTop = YGValue.init(CGFloat((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+            layout.marginLeft = YGValue.init(integerLiteral: 0)
+            layout.marginRight = YGValue.init(integerLiteral: 0)
+            layout.height = YGValue.init(integerLiteral: 47)
+            
+        })
+        
+        self.yoga.isEnabled = true
+        self.yoga.applyLayout(preservingOrigin: true)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+
+        if keyPath == "contentOffset" {
+            let point = change?[NSKeyValueChangeKey.newKey] as! CGPoint
+            if (point.y <= 0) {
+                self.backgroundColor = UIColor.clear
+            } else if (point.y <= 100) {
+                let value = point.y / 100.0
+                self.backgroundColor = UIColor.init(red: 80/255.0, green: 141/255.0, blue: 210/255.0, alpha: value)
+            } else {
+                self.backgroundColor = UIColor.init(red: 80/255.0, green: 141/255.0, blue: 210/255.0, alpha: 1)
+            }
+        }
+    }
 }

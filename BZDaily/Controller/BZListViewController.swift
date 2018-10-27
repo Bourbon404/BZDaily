@@ -24,25 +24,32 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     let cellID = "cell"
     let sectionID = "sectionID"
     
+    deinit {
+        self.removeObserver(self.naviView!, forKeyPath: "contentOffset")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.listHeaderView?.reloadScrollView()
         
-        let header : HTTPHeaders = [
-            "authorization":"Bearer 1pil2HanTpum33V5hDJEIw"
-        ]
-        Alamofire.request("https://news-at.zhihu.com/api/7/stories/latest", headers: header).responseJSON { (response) in
-//            self.model = BZListModel.yy_model(withJSON: response.result.value)
+        self.addObserver()
+        
+        self.listHeaderView?.reloadScrollView()
+
+//        let header : HTTPHeaders = [
+//            "authorization":"Bearer 1pil2HanTpum33V5hDJEIw"
+//        ]
+//        Alamofire.request("https://news-at.zhihu.com/api/7/stories/latest", headers: header).responseJSON { (response) in
+////            self.model = BZListModel.yy_model(withJSON: response.result.value)
+////            self.listTable?.reloadData()
+//
+//            let data = response.value
+////            let dict = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! Dictionary
+////            self.listArray = dict!["top_stories"]
+////            self.topArray = dict!["stories"]
 //            self.listTable?.reloadData()
-            
-            let data = response.value
-//            let dict = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! Dictionary
-//            self.listArray = dict!["top_stories"]
-//            self.topArray = dict!["stories"]
-            self.listTable?.reloadData()
-        }
+//        }
     }
     
     override func loadView() {
@@ -72,8 +79,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         self.listTable?.tableFooterView = UIView.init()
 
         
-        self.naviView = BZNaviView()
-        self.naviView?.backgroundColor = UIColor.yellow.withAlphaComponent(0.5)
+        self.naviView = BZNaviView(frame:CGRect.zero)
         self.view.addSubview(self.naviView!)
 
     }
@@ -109,6 +115,11 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    //observer
+    func addObserver() -> Void {
+        self.listTable?.addObserver(self.naviView!, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
     
