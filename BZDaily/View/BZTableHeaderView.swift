@@ -34,9 +34,6 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         
         self.pageControl = UIPageControl.init()
         self.addSubview(self.pageControl!)
-        
-        self.pageControl?.numberOfPages = 4
-
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,8 +65,10 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         self.yoga.applyLayout(preservingOrigin: true)
     }
     
-    func addSubView() -> UIImageView {
+    func addSubView(url: URL, title:String) -> Void {
         let imageView = UIImageView.init()
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
+        imageView.sd_setImage(with: url, completed: nil)
         self.listScroll?.addSubview(imageView)
         imageView.configureLayout { (layout) in
             layout.isEnabled = true
@@ -79,24 +78,38 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
             layout.marginLeft = YGValue.init(integerLiteral: 0)
             layout.marginRight = YGValue.init(integerLiteral: 0)
         }
-        return imageView
+        
+        let label = UILabel.init()
+        label.numberOfLines = 0
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.backgroundColor = UIColor.clear
+        label.textColor = UIColor.white
+        label.text = title
+        imageView.addSubview(label)
+        label.configureLayout { (layout) in
+            layout.isEnabled = true
+            layout.marginTop = YGValue.init(integerLiteral: 180)
+            layout.marginBottom = YGValue.init(integerLiteral: 0)
+            layout.marginLeft = YGValue.init(integerLiteral: 15)
+            layout.marginRight = YGValue.init(integerLiteral: 40)
+        }
+        
     }
     
-    public func reloadScrollView() -> Void {
+    public func reloadScrollView(object : Array<Any>) -> Void {
+        
+        self.pageControl?.numberOfPages = object.count
         //data
-        let redView = self.addSubView()
-        redView.backgroundColor = UIColor.red
-
-        let yellowView = self.addSubView()
-        yellowView.backgroundColor = UIColor.yellow
-
-        let purpleView = self.addSubView()
-        purpleView.backgroundColor = UIColor.purple
-
-        let blueView = self.addSubView()
-        blueView.backgroundColor = UIColor.blue
-
-        self.listScroll?.contentSize = CGSize.init(width: CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)! * 4), height: 220 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+        for dict in object {
+            let tmp = dict as! Dictionary<String, Any>
+            let imagePath = tmp["image"]
+            let url = URL.init(string: imagePath as! String)
+            
+            let title = tmp["title"]
+            self.addSubView(url: url!, title: title as! String)
+            
+        }
+        self.listScroll?.contentSize = CGSize.init(width: CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)! * CGFloat(object.count)), height: 220 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
         self.listScroll?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.flexDirection = YGFlexDirection.row

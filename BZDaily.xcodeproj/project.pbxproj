@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C70D833216D015CD1B43B1D /* Pods_BZDailyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD46363C87A83F53C5B62991 /* Pods_BZDailyTests.framework */; };
+		9F3449FA2190743C009394D3 /* result.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F3449F92190743C009394D3 /* result.json */; };
 		9F98053D218326C800F2A51F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98053C218326C800F2A51F /* AppDelegate.swift */; };
 		9F980542218326C800F2A51F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F980540218326C800F2A51F /* Main.storyboard */; };
 		9F980545218326C800F2A51F /* BZDaily.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F980543218326C800F2A51F /* BZDaily.xcdatamodeld */; };
@@ -52,6 +53,7 @@
 		54D0C8F2F71A4F796FFACD25 /* Pods-BZDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDaily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BZDaily/Pods-BZDaily.debug.xcconfig"; sourceTree = "<group>"; };
 		7E08785FDC9C0ACECEF6BECF /* Pods-BZDailyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyUITests/Pods-BZDailyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		829179BABE207CB9B2662D30 /* Pods-BZDailyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyTests/Pods-BZDailyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9F3449F92190743C009394D3 /* result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result.json; sourceTree = "<group>"; };
 		9F980539218326C800F2A51F /* BZDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BZDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F98053C218326C800F2A51F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F980541218326C800F2A51F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		9F98053B218326C800F2A51F /* BZDaily */ = {
 			isa = PBXGroup;
 			children = (
+				9F3449F92190743C009394D3 /* result.json */,
 				9F98053C218326C800F2A51F /* AppDelegate.swift */,
 				9F98058E218378D800F2A51F /* Model */,
 				9F9805772183285400F2A51F /* View */,
@@ -341,6 +344,7 @@
 			files = (
 				9F98054A218326CA00F2A51F /* LaunchScreen.storyboard in Resources */,
 				9F980547218326CA00F2A51F /* Assets.xcassets in Resources */,
+				9F3449FA2190743C009394D3 /* result.json in Resources */,
 				9F980542218326C800F2A51F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +420,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BZDaily/Pods-BZDaily-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
 				"${BUILT_PRODUCTS_DIR}/YogaKit/YogaKit.framework",
@@ -425,6 +430,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YogaKit.framework",

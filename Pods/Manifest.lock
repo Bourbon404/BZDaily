@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (4.7.3)
+  - SDWebImage (5.0.0-beta2):
+    - SDWebImage/Core (= 5.0.0-beta2)
+  - SDWebImage/Core (5.0.0-beta2)
   - Yoga (1.9.0)
   - YogaKit (1.9.0):
     - Yoga (~> 1.9)
@@ -7,6 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7.3)
+  - SDWebImage (~> 5.0.0-beta2)
   - Yoga (~> 1.9.0)
   - YogaKit (~> 1.9.0)
   - YYModel (~> 1.0.4)
@@ -14,16 +18,18 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - SDWebImage
     - Yoga
     - YogaKit
     - YYModel
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  SDWebImage: 8e4aaf5805e954ad426702adf5a8c012a7f581d1
   Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
   YogaKit: d447a9bb808718e6f58e52a2255a8050081a3ead
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: f07ba9a2f7cd4ba7959a9d59543548f25ce2e7ca
+PODFILE CHECKSUM: fbda7c4de93c6b6fbdd8adb48a72cd1183b63288
 
 COCOAPODS: 1.5.3
