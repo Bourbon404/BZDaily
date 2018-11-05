@@ -8,10 +8,25 @@
 
 import UIKit
 import YogaKit
+import SDWebImage
 class BZTableViewCell: UITableViewCell {
 
     var titleLabel : UILabel?
     var iconView : UIImageView?
+    var object : Dictionary<String, Any>? {
+        didSet {
+            //title
+            let title = object!["title"]
+            self.titleLabel?.text = (title as! String)
+            
+            //image
+            let imageArray = (object!["images"]) as! Array<Any>
+            let imagePath = imageArray.first as! String
+            let url = URL.init(string: imagePath)
+            self.iconView?.sd_setImage(with: url!, completed: nil)
+            
+        }
+    }
     
     
     override func awakeFromNib() {
@@ -37,13 +52,11 @@ class BZTableViewCell: UITableViewCell {
         
         //titleLabel
         self.titleLabel = UILabel.init()
-        self.titleLabel?.backgroundColor = UIColor.red
         self.contentView.addSubview(self.titleLabel!)
         
         //iconView
         self.iconView = UIImageView.init()
         self.iconView?.contentMode = UIView.ContentMode.scaleAspectFill
-        self.iconView?.backgroundColor = UIColor.gray
         self.contentView.addSubview(self.iconView!)
     }
     

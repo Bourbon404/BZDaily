@@ -34,8 +34,6 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         
         self.addObserver()
-        
-        self.listHeaderView?.reloadScrollView()
 
 //        let header : HTTPHeaders = [
 //            "authorization":"Bearer 1pil2HanTpum33V5hDJEIw"
@@ -50,10 +48,37 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
 ////            self.topArray = dict!["stories"]
 //            self.listTable?.reloadData()
 //        }
+        
+        let path = Bundle.main.path(forResource: "result", ofType: "json")
+        let url = URL.init(fileURLWithPath: path!)
+        
+        do {
+            let data = try Data.init(contentsOf: url)
+            
+            do {
+                let result = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
+                self.listArray = result["stories"] as? Array<Any>
+                self.topArray = result["top_stories"] as? Array<Any>
+                self.listTable?.reloadData()
+                self.listHeaderView?.reloadScrollView(object: self.topArray!)
+            } catch  {
+                
+            }
+            
+        } catch  {
+            
+        }
+        
+        
+        
     }
     
     override func loadView() {
         super.loadView()
+        
+        //data
+        self.listArray = Array.init()
+        self.topArray = Array.init()
         
         //table
         self.listTable = BZListTable(frame: CGRect.zero, style:UITableView.Style.grouped)
@@ -125,16 +150,20 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     
     //datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return (self.listArray?.count)!
-        return 10
+        return (self.listArray?.count)!
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! BZTableViewCell
+        
+        let object = self.listArray![indexPath.row] as! Dictionary<String, Any>
+        cell.object = object
+        
         return cell
     }
     
