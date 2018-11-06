@@ -11,6 +11,14 @@ import YogaKit
 class BZSectionHeaderView: UITableViewHeaderFooterView {
     var dateLabel : UILabel?
     var colorBackgroundView : UIView?
+    var formatter : DateFormatter?
+    
+    var date : Date? {
+        didSet {
+            let string = self.formatter?.string(from: date!)
+            self.dateLabel?.text = string!
+        }
+    }
     
     
     /*
@@ -24,14 +32,15 @@ class BZSectionHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
+        self.formatter = DateFormatter.init()
+        self.formatter?.dateFormat = "MM月dd日 EEEE"
+        
         self.dateLabel = UILabel.init()
         self.dateLabel?.textColor = UIColor.white
         self.dateLabel?.textAlignment = NSTextAlignment.center
         self.dateLabel?.backgroundColor = UIColor.init(red: 80/255.0, green: 141/255.0, blue: 210/255.0, alpha: 1)
         self.contentView.addSubview(self.dateLabel!)
-
         
-        self.dateLabel?.text = "10月25日 星期四"
 
     }
     

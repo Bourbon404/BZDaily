@@ -11,6 +11,8 @@ import YogaKit
 class BZNaviView: UIView {
 
     var titleLabel : UILabel?
+    var circle : UIActivityIndicatorView?
+    var moreButton : UIButton?
     
     
     /*
@@ -34,6 +36,16 @@ class BZNaviView: UIView {
 
         self.titleLabel?.text = "今日新闻"
         
+        //菊花
+        self.circle = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.white)
+        self.titleLabel?.addSubview(self.circle!)
+        
+        
+        self.moreButton = UIButton.init(type: UIButton.ButtonType.custom)
+        let image = UIImage.init(imageLiteralResourceName: "gengduo")
+        self.moreButton?.setImage(image, for: UIControl.State.normal)
+        self.titleLabel?.addSubview(self.moreButton!)
+
         self.backgroundColor = UIColor.clear
 
     }
@@ -51,7 +63,24 @@ class BZNaviView: UIView {
             layout.marginLeft = YGValue.init(integerLiteral: 0)
             layout.marginRight = YGValue.init(integerLiteral: 0)
             layout.height = YGValue.init(integerLiteral: 47)
-            
+            layout.flexDirection = YGFlexDirection.row
+        })
+        
+        self.circle?.configureLayout(block: { (layout) in
+            layout.isEnabled = true
+            layout.position = YGPositionType.absolute
+            layout.width = 20
+            layout.height = 20
+            layout.alignSelf = YGAlign.center
+            layout.marginLeft = YGValue.init(CGFloat(self.frame.size.width / 2 - 60))
+        })
+
+        self.moreButton?.configureLayout(block: { (layout) in
+            layout.isEnabled = true
+            layout.width = YGValue.init(integerLiteral: 20)
+            layout.height = YGValue.init(integerLiteral: 17)
+            layout.alignSelf = YGAlign.center
+            layout.marginLeft = 10
         })
         
         self.yoga.isEnabled = true
