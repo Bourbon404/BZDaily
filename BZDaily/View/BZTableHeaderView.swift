@@ -130,6 +130,14 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         
     }
     
+    public func transformBackImage(offset : CGFloat) {
+        
+//        self.timer?.invalidate()
+//        let value = offset / 100.0
+//        self.listScroll?.transform = CGAffineTransform.init(scaleX: 1, y: value)
+        
+    }
+    
     //UIScrollView Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -143,4 +151,6 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         self.pageControl?.currentPage = Int(page)
         
     }
+    
+    
 }

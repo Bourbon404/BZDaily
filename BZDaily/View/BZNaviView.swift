@@ -38,6 +38,7 @@ class BZNaviView: UIView {
         
         //菊花
         self.circle = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.white)
+        self.circle?.hidesWhenStopped = true
         self.titleLabel?.addSubview(self.circle!)
         
         
@@ -100,5 +101,14 @@ class BZNaviView: UIView {
                 self.backgroundColor = UIColor.init(red: 80/255.0, green: 141/255.0, blue: 210/255.0, alpha: 1)
             }
         }
+    }
+    
+    //method
+    public func startAnimation() -> Void {
+        self.circle?.startAnimating()
+    }
+    
+    public func stopAnimation() -> Void {
+        self.circle?.stopAnimating()
     }
 }
