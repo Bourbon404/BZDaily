@@ -12,7 +12,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
     
     var listScroll : BZScrollView?
     var pageControl : UIPageControl?
-
+    var timer : Timer?
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -22,6 +22,13 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
     */
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { (currentTimer) in
+            let contentOffset = self.listScroll?.contentOffset;
+            var x = contentOffset!.x + self.frame.size.width
+            x = x.truncatingRemainder(dividingBy: (self.listScroll?.contentSize.width)!)
+            self.listScroll?.setContentOffset(CGPoint.init(x: x, y: 0), animated: true)
+        })
         
         //scroll
         self.listScroll = BZScrollView()
@@ -98,6 +105,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
     
     public func reloadScrollView(object : Array<Any>) -> Void {
         
+        
         self.pageControl?.numberOfPages = object.count
         //data
         for dict in object {
@@ -115,13 +123,22 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
             layout.flexDirection = YGFlexDirection.row
         })
         self.listScroll?.yoga.applyLayout(preservingOrigin: true)
+        
+        self.timer?.fire()
+        
     }
     
     //UIScrollView Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-//        let offset = scrollView.contentOffset
-//        let page = offset.x.truncatingRemainder(dividingBy: UIScreen.main.bounds.size.width)
-//        self.pageControl?.currentPage = Int(page)
+        let offset = scrollView.contentOffset
+        
+        if (offset.x + self.frame.size.width > scrollView.contentSize.width) {
+            scrollView.setContentOffset(CGPoint.zero, animated: false)
+        }
+    
+        let page = scrollView.contentOffset.x / self.frame.size.width
+        self.pageControl?.currentPage = Int(page)
+        
     }
 }
