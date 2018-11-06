@@ -10,7 +10,7 @@ import UIKit
 import YogaKit
 import Alamofire
 
-class BZListViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
+class BZListViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
 
     var listTable : BZListTable?
     var listHeaderView : BZTableHeaderView?
@@ -173,5 +173,11 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         return view;
     }
     
-
+    //scrollview delegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset
+        if (contentOffset.y < 0 && scrollView.isDragging) {
+            scrollView.setContentOffset(CGPoint.zero, animated: false)
+        }
+    }
 }
