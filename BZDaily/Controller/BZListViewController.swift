@@ -17,7 +17,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     var naviView : BZNaviView?
     var model : BZListModel?
     
-    var listArray : Array<Any>?
+    var listDict : Dictionary<Date, Any>?
     var topArray : Array<Any>?
     
 
@@ -57,7 +57,10 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             
             do {
                 let result = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
-                self.listArray = result["stories"] as? Array<Any>
+                let array = (result["stories"] as? Array<Any>)
+                self.listDict?.updateValue(array as Any, forKey: Date.init())
+                self.listDict?.updateValue(array as Any, forKey: Date.init().addingTimeInterval(10000))
+
                 self.topArray = result["top_stories"] as? Array<Any>
                 self.listTable?.reloadData()
                 self.listHeaderView?.reloadScrollView(object: self.topArray!)
@@ -77,7 +80,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         super.loadView()
         
         //data
-        self.listArray = Array.init()
+        self.listDict = Dictionary.init()
         self.topArray = Array.init()
         
         //table
@@ -150,18 +153,28 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     
     //datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.listArray?.count)!
+        
+        let keyArray = self.listDict?.keys.sorted()
+        let key = keyArray![section]
+        let array = self.listDict![key] as! Array <Any>
+        
+        return array.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 1
+        return (self.listDict?.keys.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! BZTableViewCell
         
-        let object = self.listArray![indexPath.row] as! Dictionary<String, Any>
+        
+        
+        let keyArray = self.listDict?.keys.sorted()
+        let key = keyArray![indexPath.section]
+        let array = self.listDict![key] as! Array <Any>
+        let object = array[indexPath.row] as! Dictionary<String, Any>
         cell.object = object
         
         return cell
@@ -170,6 +183,12 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     //section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionID) as! BZSectionHeaderView
+        
+        let keyArray = self.listDict?.keys.sorted()
+        let key = keyArray![section]
+        
+        view.date = key
+    
         return view;
     }
     
