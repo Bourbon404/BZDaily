@@ -195,8 +195,17 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     //scrollview delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffset = scrollView.contentOffset
-        if (contentOffset.y < 0 && scrollView.isDragging) {
-            scrollView.setContentOffset(CGPoint.zero, animated: false)
+        if (contentOffset.y < -100 && scrollView.isDragging) {
+            scrollView.setContentOffset(CGPoint.init(x: 0, y: -100), animated: false)
+            
+            self.naviView!.stopAnimation()
+
+        } else {
+            
+            self.listHeaderView!.transformBackImage(offset: contentOffset.y)
+            
+//            self.naviView!.startAnimation()
+
         }
     }
 }
