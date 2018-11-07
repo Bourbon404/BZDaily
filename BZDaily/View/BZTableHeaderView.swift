@@ -135,7 +135,16 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
 //        self.timer?.invalidate()
 //        let value = offset / 100.0
 //        self.listScroll?.transform = CGAffineTransform.init(scaleX: 1, y: value)
+        print(offset)
         
+        if (offset <= 0) {
+            
+//            let ratio = -offset / 100.0
+//            self.listScroll?.yoga.markDirty()
+//            self.listScroll?.yoga.top = YGValue.init(integerLiteral: 0)
+//            self.yoga.applyLayout(preservingOrigin: true)
+            
+        }
     }
     
     //UIScrollView Delegate
