@@ -83,6 +83,10 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         self.listDict = Dictionary.init()
         self.topArray = Array.init()
         
+        //header
+        self.listHeaderView = BZTableHeaderView.init(frame: CGRect.zero)
+        self.view.addSubview(self.listHeaderView!)
+        
         //table
         self.listTable = BZListTable(frame: CGRect.zero, style:UITableView.Style.grouped)
         var contentInset = self.listTable?.contentInset
@@ -101,11 +105,11 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         self.view.addSubview(self.listTable!)
         
         let screenWidth = UIApplication.shared.keyWindow?.bounds.size.width
-        self.listHeaderView = BZTableHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: screenWidth!, height: 240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
-        self.listHeaderView!.backgroundColor = UIColor.clear
-        self.listTable?.tableHeaderView = self.listHeaderView
-        self.listTable?.tableFooterView = UIView.init()
 
+        let topView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: screenWidth!, height: 240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+        topView.backgroundColor = UIColor.clear
+        self.listTable?.tableHeaderView = topView
+        self.listTable?.tableFooterView = UIView.init()
         
         self.naviView = BZNaviView(frame:CGRect.zero)
         self.view.addSubview(self.naviView!)
@@ -114,7 +118,16 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-    
+        
+        self.listHeaderView?.configureLayout(block: { (layout) in
+            layout.isEnabled = true
+            layout.position = YGPositionType.absolute
+            layout.left = YGValue.init(integerLiteral: 0)
+            layout.right = YGValue.init(integerLiteral: 0)
+            layout.top = YGValue.init(integerLiteral: 0)
+            layout.height = YGValue.init(CGFloat(240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+        })
+        
         //table frame
         self.listTable?.configureLayout(block: { (layout) in
             layout.isEnabled = true
@@ -196,23 +209,45 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffset = scrollView.contentOffset
         
-        if (contentOffset.y < 0 && scrollView.isDragging) {
-            scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
+        if (contentOffset.y < -100 && scrollView.isDragging) {
+            scrollView.setContentOffset(CGPoint.init(x: 0, y: -100), animated: false)
             
-            self.naviView!.stopAnimation()
+//            self.naviView!.stopAnimation()
             
+//            CGFloat width = self.view.frame.size.width;
+//            // 图片宽度
+//            CGFloat yOffset = scrollView.contentOffset.y;
+//            // 偏移的y值
+//            if(yOffset < 0)
+//            {CGFloat totalOffset = 200 + ABS(yOffset);
+//                CGFloat f = totalOffset / 200;
+//                //拉伸后的图片的frame应该是同比例缩放。
+//                self.tableView.tableHeaderView.frame =  CGRectMake(- (width *f-width) / 2, yOffset, width * f, totalOffset);
+//            }
+
 
         } else {
             
-            let offset = contentOffset.y
-            if (offset < 0) {
-                
-                self.naviView!.startAnimation()
-                let ratio = offset / 100.0;
-                self.naviView!.updateProgress(progress: ratio)
-                
-                self.listHeaderView!.transformBackImage(offset: contentOffset.y)
-            }
+//            let offset = contentOffset.y
+//            if (offset < 0) {
+//
+//                self.naviView!.startAnimation()
+//                let ratio = offset / 100.0;
+//                self.naviView!.updateProgress(progress: ratio)
+//
+//                self.listHeaderView!.transformBackImage(offset: contentOffset.y)
+//            }
+        }
+        
+        
+        if (contentOffset.y < 0) {
+            let width = UIApplication.shared.keyWindow?.bounds.size.width
+            let height = 240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!
+            let radio = -contentOffset.y / 100
+            
+            let newWidth = CGFloat(width! + width! * radio)
+            let newHeight = CGFloat(height + (-contentOffset.y))
+//            self.listTable?.tableHeaderView?.frame = CGRect.init(x: (width! - newWidth)/2 , y: -contentOffset.y, width: newWidth, height: newHeight)
         }
     }
 }
