@@ -97,8 +97,8 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         imageView.addSubview(label)
         label.configureLayout { (layout) in
             layout.isEnabled = true
-            layout.marginTop = YGValue.init(integerLiteral: 180)
-            layout.marginBottom = YGValue.init(integerLiteral: 0)
+            layout.marginTop = YGValue.init(integerLiteral: 145)
+            layout.marginBottom = YGValue.init(integerLiteral: 35)
             layout.marginLeft = YGValue.init(integerLiteral: 15)
             layout.marginRight = YGValue.init(integerLiteral: 40)
         }
@@ -154,7 +154,9 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         }
     
         let page = scrollView.contentOffset.x / self.frame.size.width
-        self.pageControl?.currentPage = Int(page)
+        if (page <= 4) {
+            self.pageControl?.currentPage = Int(page)
+        }
         
     }
     
