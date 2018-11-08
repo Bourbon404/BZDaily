@@ -130,7 +130,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         
     }
     
-    public func transformBackImage(offset : CGFloat) {
+    public func transformBackImage(frame : CGRect) {
         
 //        self.timer?.invalidate()
 //        let value = offset / 100.0
@@ -142,6 +142,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
 //        self.pageControl?.yoga.markDirty()
 //        self.pageControl?.yoga.bottom = YGValue.init(integerLiteral: 0)
 //        self.yoga.applyLayout(preservingOrigin: true)
+        
     }
     
     //UIScrollView Delegate

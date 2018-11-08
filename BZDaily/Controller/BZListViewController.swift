@@ -85,6 +85,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         
         //header
         self.listHeaderView = BZTableHeaderView.init(frame: CGRect.zero)
+        self.listHeaderView?.backgroundColor = UIColor.red
         self.view.addSubview(self.listHeaderView!)
         
         //table
@@ -248,6 +249,10 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             let newWidth = CGFloat(width! + width! * radio)
             let newHeight = CGFloat(height + (-contentOffset.y))
 //            self.listTable?.tableHeaderView?.frame = CGRect.init(x: (width! - newWidth)/2 , y: -contentOffset.y, width: newWidth, height: newHeight)
+            let frame = CGRect.init(x: (width! - newWidth)/2, y: 0, width: newWidth, height: newHeight)
+            self.listHeaderView?.frame = frame
+            print(frame)
+
         }
     }
 }
