@@ -101,7 +101,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         self.view.addSubview(self.listTable!)
         
         let screenWidth = UIApplication.shared.keyWindow?.bounds.size.width
-        self.listHeaderView = BZTableHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: screenWidth!, height: 220 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+        self.listHeaderView = BZTableHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: screenWidth!, height: 240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
         self.listHeaderView!.backgroundColor = UIColor.clear
         self.listTable?.tableHeaderView = self.listHeaderView
         self.listTable?.tableFooterView = UIView.init()
@@ -129,7 +129,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             layout.left = YGValue.init(floatLiteral: 0)
             layout.right = YGValue.init(floatLiteral: 0)
             layout.top = YGValue.init(integerLiteral: 0)
-            layout.height = YGValue.init(integerLiteral: Int(47 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+            layout.height = YGValue.init(integerLiteral: Int(67 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
             layout.position = YGPositionType.absolute
         })
         
@@ -195,17 +195,24 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     //scrollview delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffset = scrollView.contentOffset
-        if (contentOffset.y < -100 && scrollView.isDragging) {
-            scrollView.setContentOffset(CGPoint.init(x: 0, y: -100), animated: false)
+        
+        if (contentOffset.y < 0 && scrollView.isDragging) {
+            scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
             
             self.naviView!.stopAnimation()
+            
 
         } else {
             
-            self.listHeaderView!.transformBackImage(offset: contentOffset.y)
-            
-//            self.naviView!.startAnimation()
-
+            let offset = contentOffset.y
+            if (offset < 0) {
+                
+                self.naviView!.startAnimation()
+                let ratio = offset / 100.0;
+                self.naviView!.updateProgress(progress: ratio)
+                
+                self.listHeaderView!.transformBackImage(offset: contentOffset.y)
+            }
         }
     }
 }

@@ -55,7 +55,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         self.listScroll?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.top = YGValue.init(integerLiteral: 0)
-            layout.height = YGValue.init(integerLiteral: Int(220 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)))
+            layout.height = YGValue.init(integerLiteral: Int(240 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)))
             layout.left = YGValue.init(integerLiteral: 0)
             layout.width = YGValue.init(integerLiteral: Int(UIApplication.shared.statusBarFrame.width))
             layout.position = YGPositionType.absolute
@@ -82,7 +82,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         imageView.configureLayout { (layout) in
             layout.isEnabled = true
             layout.width = YGValue.init(CGFloat(((UIApplication.shared.keyWindow?.bounds.size.width)!)))
-            layout.height = YGValue.init(integerLiteral: Int(220 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)))
+            layout.height = YGValue.init(integerLiteral: Int(240 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)))
             layout.marginTop = YGValue.init(integerLiteral: 0)
             layout.marginLeft = YGValue.init(integerLiteral: 0)
             layout.marginRight = YGValue.init(integerLiteral: 0)
@@ -119,7 +119,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
             self.addSubView(url: url!, title: title as! String)
             
         }
-        self.listScroll?.contentSize = CGSize.init(width: CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)! * CGFloat(object.count)), height: 220 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+        self.listScroll?.contentSize = CGSize.init(width: CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)! * CGFloat(object.count)), height: 240 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
         self.listScroll?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.flexDirection = YGFlexDirection.row
@@ -135,16 +135,13 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
 //        self.timer?.invalidate()
 //        let value = offset / 100.0
 //        self.listScroll?.transform = CGAffineTransform.init(scaleX: 1, y: value)
-        print(offset)
-        
-        if (offset <= 0) {
-            
-//            let ratio = -offset / 100.0
-//            self.listScroll?.yoga.markDirty()
-//            self.listScroll?.yoga.top = YGValue.init(integerLiteral: 0)
-//            self.yoga.applyLayout(preservingOrigin: true)
-            
-        }
+
+//        self.listScroll?.yoga.markDirty()
+//        self.listScroll?.yoga.top = YGValue.init(integerLiteral: 0)
+//        
+//        self.pageControl?.yoga.markDirty()
+//        self.pageControl?.yoga.bottom = YGValue.init(integerLiteral: 0)
+//        self.yoga.applyLayout(preservingOrigin: true)
     }
     
     //UIScrollView Delegate

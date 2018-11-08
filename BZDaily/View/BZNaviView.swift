@@ -11,8 +11,8 @@ import YogaKit
 class BZNaviView: UIView {
 
     var titleLabel : UILabel?
-    var circle : UIActivityIndicatorView?
     var moreButton : UIButton?
+    var circle : BZProgressCircleView?
     
     
     /*
@@ -36,11 +36,8 @@ class BZNaviView: UIView {
 
         self.titleLabel?.text = "今日新闻"
         
-        //菊花
-        self.circle = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.white)
-        self.circle?.hidesWhenStopped = true
+        self.circle = BZProgressCircleView.init()
         self.titleLabel?.addSubview(self.circle!)
-        
         
         self.moreButton = UIButton.init(type: UIButton.ButtonType.custom)
         let image = UIImage.init(imageLiteralResourceName: "gengduo")
@@ -60,22 +57,23 @@ class BZNaviView: UIView {
         super.layoutSubviews()
         self.titleLabel?.configureLayout(block: { (layout) in
             layout.isEnabled = true
-            layout.marginTop = YGValue.init(CGFloat((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+            layout.marginTop = YGValue.init(CGFloat(20 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
             layout.marginLeft = YGValue.init(integerLiteral: 0)
             layout.marginRight = YGValue.init(integerLiteral: 0)
             layout.height = YGValue.init(integerLiteral: 47)
             layout.flexDirection = YGFlexDirection.row
         })
-        
+
         self.circle?.configureLayout(block: { (layout) in
             layout.isEnabled = true
-            layout.position = YGPositionType.absolute
-            layout.width = 20
-            layout.height = 20
+            layout.width = YGValue.init(integerLiteral: 20)
             layout.alignSelf = YGAlign.center
-            layout.marginLeft = YGValue.init(CGFloat(self.frame.size.width / 2 - 60))
+            layout.marginLeft = YGValue.init(integerLiteral: 120)
+            layout.height = YGValue.init(integerLiteral: 20)
+            layout.position = YGPositionType.absolute
+            
         })
-
+        
         self.moreButton?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.width = YGValue.init(integerLiteral: 20)
@@ -103,12 +101,18 @@ class BZNaviView: UIView {
         }
     }
     
+    
     //method
     public func startAnimation() -> Void {
-        self.circle?.startAnimating()
+        self.circle?.isHidden = false
     }
     
     public func stopAnimation() -> Void {
-        self.circle?.stopAnimating()
+        self.circle?.isHidden = true
+    }
+    
+    public func updateProgress(progress : CGFloat) -> Void {
+        
+        self.circle?.updateProgress(progress: progress)
     }
 }
