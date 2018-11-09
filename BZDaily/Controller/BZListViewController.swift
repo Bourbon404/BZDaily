@@ -28,54 +28,6 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         self.removeObserver(self.naviView!, forKeyPath: "contentOffset")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        self.addObserver()
-
-//        let header : HTTPHeaders = [
-//            "authorization":"Bearer 1pil2HanTpum33V5hDJEIw"
-//        ]
-//        Alamofire.request("https://news-at.zhihu.com/api/7/stories/latest", headers: header).responseJSON { (response) in
-////            self.model = BZListModel.yy_model(withJSON: response.result.value)
-////            self.listTable?.reloadData()
-//
-//            let data = response.value
-////            let dict = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! Dictionary
-////            self.listArray = dict!["top_stories"]
-////            self.topArray = dict!["stories"]
-//            self.listTable?.reloadData()
-//        }
-        
-        let path = Bundle.main.path(forResource: "result", ofType: "json")
-        let url = URL.init(fileURLWithPath: path!)
-        
-        do {
-            let data = try Data.init(contentsOf: url)
-            
-            do {
-                let result = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
-                let array = (result["stories"] as? Array<Any>)
-                self.listDict?.updateValue(array as Any, forKey: Date.init())
-                self.listDict?.updateValue(array as Any, forKey: Date.init().addingTimeInterval(10000))
-
-                self.topArray = result["top_stories"] as? Array<Any>
-                self.listTable?.reloadData()
-                self.listHeaderView?.reloadScrollView(object: self.topArray!)
-            } catch  {
-                
-            }
-            
-        } catch  {
-            
-        }
-        
-        
-        
-    }
-    
     override func loadView() {
         super.loadView()
         
@@ -93,7 +45,6 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         var contentInset = self.listTable?.contentInset
         contentInset?.top = -(UIApplication.shared.statusBarFrame.size.height)
         self.listTable?.contentInset = contentInset!
-        
         self.listTable?.dataSource = self
         self.listTable?.delegate = self
         self.listTable?.rowHeight = 90
@@ -105,9 +56,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         self.listTable?.register(BZSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: sectionID)
         self.view.addSubview(self.listTable!)
         
-        let screenWidth = UIApplication.shared.keyWindow?.bounds.size.width
-
-        let topView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: screenWidth!, height: 240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+        let topView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.bounds.size.width)!, height: 240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
         topView.backgroundColor = UIColor.clear
         self.listTable?.tableHeaderView = topView
         self.listTable?.tableFooterView = UIView.init()
@@ -115,6 +64,51 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         self.naviView = BZNaviView(frame:CGRect.zero)
         self.view.addSubview(self.naviView!)
 
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        
+        self.addObserver()
+        
+        //        let header : HTTPHeaders = [
+        //            "authorization":"Bearer 1pil2HanTpum33V5hDJEIw"
+        //        ]
+        //        Alamofire.request("https://news-at.zhihu.com/api/7/stories/latest", headers: header).responseJSON { (response) in
+        ////            self.model = BZListModel.yy_model(withJSON: response.result.value)
+        ////            self.listTable?.reloadData()
+        //
+        //            let data = response.value
+        ////            let dict = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! Dictionary
+        ////            self.listArray = dict!["top_stories"]
+        ////            self.topArray = dict!["stories"]
+        //            self.listTable?.reloadData()
+        //        }
+        
+        let path = Bundle.main.path(forResource: "result", ofType: "json")
+        let url = URL.init(fileURLWithPath: path!)
+        
+        do {
+            let data = try Data.init(contentsOf: url)
+            
+            do {
+                let result = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
+                let array = (result["stories"] as? Array<Any>)
+                self.listDict?.updateValue(array as Any, forKey: Date.init())
+                self.listDict?.updateValue(array as Any, forKey: Date.init().addingTimeInterval(10000))
+                
+                self.topArray = result["top_stories"] as? Array<Any>
+                self.listTable?.reloadData()
+                self.listHeaderView?.reloadScrollView(object: self.topArray!)
+            } catch  {
+                
+            }
+            
+        } catch  {
+            
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -194,6 +188,13 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         return cell
     }
     
+    //delegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyController = BZStoryViewController.init()
+        self.navigationController?.pushViewController(storyController, animated: true)
+    }
+    
     //section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionID) as! BZSectionHeaderView
@@ -210,49 +211,32 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffset = scrollView.contentOffset
         
+        //控制下拉范围
         if (contentOffset.y < -100 && scrollView.isDragging) {
             scrollView.setContentOffset(CGPoint.init(x: 0, y: -100), animated: false)
-            
-//            self.naviView!.stopAnimation()
-            
-//            CGFloat width = self.view.frame.size.width;
-//            // 图片宽度
-//            CGFloat yOffset = scrollView.contentOffset.y;
-//            // 偏移的y值
-//            if(yOffset < 0)
-//            {CGFloat totalOffset = 200 + ABS(yOffset);
-//                CGFloat f = totalOffset / 200;
-//                //拉伸后的图片的frame应该是同比例缩放。
-//                self.tableView.tableHeaderView.frame =  CGRectMake(- (width *f-width) / 2, yOffset, width * f, totalOffset);
-//            }
+        }
+        
+        var rect = CGRect.init(x: 0, y: 0, width: (UIApplication.shared.keyWindow?.bounds.size.width)!, height: 240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)
+        
+        if contentOffset.y >= 0 {
+            self.naviView?.stopAnimation()
 
-
+            //上推时顶部视图向上移动
+            rect.origin.y = -contentOffset.y
+            self.listHeaderView?.frame = rect
         } else {
             
-//            let offset = contentOffset.y
-//            if (offset < 0) {
-//
-//                self.naviView!.startAnimation()
-//                let ratio = offset / 100.0;
-//                self.naviView!.updateProgress(progress: ratio)
-//
-//                self.listHeaderView!.transformBackImage(offset: contentOffset.y)
-//            }
-        }
-        
-        
-        if (contentOffset.y < 0) {
-            let width = UIApplication.shared.keyWindow?.bounds.size.width
-            let height = 240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!
-            let radio = -contentOffset.y / 100
+            //下拉的时候进行放大处理
+            self.naviView?.startAnimation()
+            let radio = -contentOffset.y / 100.0
+            self.naviView?.updateProgress(progress: radio)
             
-            let newWidth = CGFloat(width! + width! * radio)
-            let newHeight = CGFloat(height + (-contentOffset.y))
-//            self.listTable?.tableHeaderView?.frame = CGRect.init(x: (width! - newWidth)/2 , y: -contentOffset.y, width: newWidth, height: newHeight)
-            let frame = CGRect.init(x: (width! - newWidth)/2, y: 0, width: newWidth, height: newHeight)
-            self.listHeaderView?.frame = frame
-            print(frame)
-
+            let newHeight = 240 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)! - contentOffset.y
+            rect.size.height = newHeight
+            self.listHeaderView?.frame = rect
         }
+        
+        print(self.listHeaderView?.frame as Any)
+
     }
 }

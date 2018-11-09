@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8C70D833216D015CD1B43B1D /* Pods_BZDailyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD46363C87A83F53C5B62991 /* Pods_BZDailyTests.framework */; };
+		9F11C63C2195B279005EB7FC /* BZStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F11C63B2195B279005EB7FC /* BZStoryViewController.swift */; };
+		9F11C63E2195B291005EB7FC /* BZToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F11C63D2195B291005EB7FC /* BZToolBarView.swift */; };
+		9F11C6402195BAF6005EB7FC /* story in Resources */ = {isa = PBXBuildFile; fileRef = 9F11C63F2195BAF6005EB7FC /* story */; };
+		9F11C6442195D424005EB7FC /* toolbar in Resources */ = {isa = PBXBuildFile; fileRef = 9F11C6432195D424005EB7FC /* toolbar */; };
 		9F3449FA2190743C009394D3 /* result.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F3449F92190743C009394D3 /* result.json */; };
 		9F98053D218326C800F2A51F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98053C218326C800F2A51F /* AppDelegate.swift */; };
 		9F980542218326C800F2A51F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F980540218326C800F2A51F /* Main.storyboard */; };
@@ -54,6 +58,10 @@
 		54D0C8F2F71A4F796FFACD25 /* Pods-BZDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDaily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BZDaily/Pods-BZDaily.debug.xcconfig"; sourceTree = "<group>"; };
 		7E08785FDC9C0ACECEF6BECF /* Pods-BZDailyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyUITests/Pods-BZDailyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		829179BABE207CB9B2662D30 /* Pods-BZDailyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyTests/Pods-BZDailyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9F11C63B2195B279005EB7FC /* BZStoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZStoryViewController.swift; sourceTree = "<group>"; };
+		9F11C63D2195B291005EB7FC /* BZToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZToolBarView.swift; sourceTree = "<group>"; };
+		9F11C63F2195BAF6005EB7FC /* story */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = story; sourceTree = "<group>"; };
+		9F11C6432195D424005EB7FC /* toolbar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = toolbar; sourceTree = "<group>"; };
 		9F3449F92190743C009394D3 /* result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result.json; sourceTree = "<group>"; };
 		9F980539218326C800F2A51F /* BZDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BZDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F98053C218326C800F2A51F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +172,8 @@
 			isa = PBXGroup;
 			children = (
 				9F3449F92190743C009394D3 /* result.json */,
+				9F11C63F2195BAF6005EB7FC /* story */,
+				9F11C6432195D424005EB7FC /* toolbar */,
 				9F98053C218326C800F2A51F /* AppDelegate.swift */,
 				9F98058E218378D800F2A51F /* Model */,
 				9F9805772183285400F2A51F /* View */,
@@ -200,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				9F980570218327FD00F2A51F /* BZListViewController.swift */,
+				9F11C63B2195B279005EB7FC /* BZStoryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -222,6 +233,7 @@
 				9F98058C2183611E00F2A51F /* BZSectionHeaderView.swift */,
 				9F98057A2183287F00F2A51F /* BZTableViewCell.swift */,
 				9FA5517B219478E7003012C0 /* BZProgressCircleView.swift */,
+				9F11C63D2195B291005EB7FC /* BZToolBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -345,10 +357,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F11C6442195D424005EB7FC /* toolbar in Resources */,
 				9F98054A218326CA00F2A51F /* LaunchScreen.storyboard in Resources */,
 				9F980547218326CA00F2A51F /* Assets.xcassets in Resources */,
 				9F3449FA2190743C009394D3 /* result.json in Resources */,
 				9F980542218326C800F2A51F /* Main.storyboard in Resources */,
+				9F11C6402195BAF6005EB7FC /* story in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,11 +494,13 @@
 				9F980545218326C800F2A51F /* BZDaily.xcdatamodeld in Sources */,
 				9F98053D218326C800F2A51F /* AppDelegate.swift in Sources */,
 				9F980571218327FD00F2A51F /* BZListViewController.swift in Sources */,
+				9F11C63E2195B291005EB7FC /* BZToolBarView.swift in Sources */,
 				9F9805922183794200F2A51F /* BZTopModel.swift in Sources */,
 				9FA5517C219478E7003012C0 /* BZProgressCircleView.swift in Sources */,
 				9F9805742183283700F2A51F /* BZView.swift in Sources */,
 				9F9805852183318500F2A51F /* BZTableHeaderView.swift in Sources */,
 				9F98057B2183287F00F2A51F /* BZTableViewCell.swift in Sources */,
+				9F11C63C2195B279005EB7FC /* BZStoryViewController.swift in Sources */,
 				9F9805902183793800F2A51F /* BZListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

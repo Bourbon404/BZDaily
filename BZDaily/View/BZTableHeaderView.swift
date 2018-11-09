@@ -43,6 +43,8 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         
         self.pageControl = UIPageControl.init()
         self.addSubview(self.pageControl!)
+        
+        self.backgroundColor = UIColor.red
     }
     
     required init?(coder aDecoder: NSCoder) {
