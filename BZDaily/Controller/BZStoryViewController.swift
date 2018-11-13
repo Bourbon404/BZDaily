@@ -128,13 +128,18 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
     
     
     //scrollview delegate
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//
-//        self.iconView?.yoga.markDirty()
-//        self.iconView?.yoga.top = YGValue.init(CGFloat(scrollView.contentOffset.y) + 230)
-//        self.webview?.yoga.isEnabled = true
-//        self.webview?.yoga.applyLayout(preservingOrigin: true)
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        let contentOffset = scrollView.contentOffset
+        if contentOffset.y <= 230 {
+            
+            UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
+        } else {
+            
+            UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.default, animated: true)
+        }
+        
+    }
     
     //content
     func reloadContentData() -> Void {
