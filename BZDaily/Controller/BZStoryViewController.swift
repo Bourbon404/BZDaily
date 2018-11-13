@@ -19,6 +19,9 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
     var titleLabel : UILabel?
     var authorLabel : UILabel?
     
+    public var storyID : String?
+    
+    
     override func loadView() {
         super.loadView()
         
@@ -28,19 +31,20 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
         self.webview?.scrollView.showsVerticalScrollIndicator = false
         self.webview?.scrollView.showsHorizontalScrollIndicator = false
         self.webview?.scrollView.delegate = self
-        self.webview?.scrollView.contentInset = UIEdgeInsets.init(top: 230, left: 0, bottom: 0, right: 0)
+        self.webview?.scrollView.contentInset = UIEdgeInsets.init(top: UIApplication.shared.statusBarFrame.size.height, left: 0, bottom: 0, right: 0)
         self.view.addSubview(self.webview!)
         
         self.iconView = UIImageView.init()
         self.iconView?.contentMode = UIView.ContentMode.scaleAspectFill
         self.iconView?.clipsToBounds = true
-        self.webview!.addSubview(self.iconView!)
+        self.webview?.scrollView.addSubview(self.iconView!)
         
         self.titleLabel = UILabel.init()
         self.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         self.titleLabel?.shadowColor = UIColor.black
         self.titleLabel?.shadowOffset = CGSize.init(width: 1, height: 1)
         self.titleLabel?.textAlignment = NSTextAlignment.left
+        self.titleLabel?.numberOfLines = 0
         self.titleLabel?.textColor = UIColor.white
         self.iconView?.addSubview(self.titleLabel!)
         
@@ -73,6 +77,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
         self.iconView?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.position = YGPositionType.absolute
+            layout.top = YGValue.init(integerLiteral: Int(-(UIApplication.shared.statusBarFrame.height)))
             layout.height = YGValue.init(integerLiteral: 230)
             layout.width = YGValue.init(CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)!))
         })
@@ -80,15 +85,17 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
         self.titleLabel?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.position = YGPositionType.absolute
-            layout.marginLeft = YGValue.init(integerLiteral: 15)
-            layout.bottom = YGValue.init(integerLiteral: 25)
+            layout.left = YGValue.init(integerLiteral: 15)
+            layout.right = YGValue.init(integerLiteral: 15)
+            layout.bottom = YGValue.init(integerLiteral: Int(50 + UIApplication.shared.statusBarFrame.height))
         })
         
         self.authorLabel?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.position = YGPositionType.absolute
-            layout.right = YGValue.init(integerLiteral: 15)
-            layout.bottom = YGValue.init(integerLiteral: 10)
+            layout.alignSelf = YGAlign.flexEnd
+            layout.marginRight = YGValue.init(integerLiteral: 15)
+            layout.bottom = YGValue.init(integerLiteral: Int(20 + UIApplication.shared.statusBarFrame.height))
         })
         
         self.webview?.configureLayout(block: { (layout) in
@@ -104,6 +111,10 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
             layout.height = YGValue.init(integerLiteral: 42)
             layout.width = YGValue.init(CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)!))
 
+        })
+        
+        self.webview?.scrollView.configureLayout(block: { (layout) in
+            layout.isEnabled = true
         })
         
         self.view.configureLayout { (layout) in
@@ -127,47 +138,61 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
     
     //content
     func reloadContentData() -> Void {
-        let path = Bundle.main.path(forResource: "story", ofType: nil)
-        let url = URL.init(fileURLWithPath: path!)
-        do {
-            let data = try Data.init(contentsOf: url)
+        
+        var path = "https://news-at.zhihu.com/api/7/story/"
+        path.append(self.storyID!)
+        
+        Alamofire.request(path).responseJSON(queue: DispatchQueue.main, options: JSONSerialization.ReadingOptions.allowFragments) { (response) in
             
-            do {
-                let result = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
-                
-                //title
-                let title = result["title"]
-                self.titleLabel?.text = (title as! String)
-                
-                //author
-                let author = result["image_source"]
-                self.authorLabel?.text = (author as! String)
-                
-                //icon
-                let imageString = result["image"]
-                let imageURL = URL.init(string: (imageString as! String))
-                self.iconView?.sd_setImage(with: imageURL, completed: nil)
-                
-                //css
-                let cssPathArray = (result["css"] as? Array<Any>)
-                let cssPath = cssPathArray?.first as! String
-                
-                
-                
-                Alamofire.request(cssPath).responseString(queue: DispatchQueue.main, encoding: String.Encoding.utf8) { (response) in
+            response.result.ifSuccess {
+                do {
+                    let result = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
+
+                    //title
+                    let title = result["title"]
+                    self.titleLabel?.text = (title as! String)
                     
-                    response.result.ifSuccess {
-                        let css = String(data: response.data!, encoding: String.Encoding.utf8)
-                        
-                        //webview
-                        let htmlString = result["body"] as! String
-                        let resultString = String.localizedStringWithFormat("<style type=\"text/css\">%@</style>%@", css!,htmlString)
-                        self.webview?.loadHTMLString((resultString ), baseURL: nil)
+                    //author
+                    let author = result["image_source"]
+                    self.authorLabel?.text = (author as! String)
+
+                    self.titleLabel?.sizeToFit()
+                    self.authorLabel?.sizeToFit()
+                    //icon
+                    let imageString = result["image"]
+                    let imageURL = URL.init(string: (imageString as! String))
+                    self.iconView?.sd_setImage(with: imageURL, completed: nil)
+
+                    //css
+                    let cssPathArray = (result["css"] as? Array<Any>)
+                    let cssPath = cssPathArray?.first as! String
+
+                    Alamofire.request(cssPath).responseString(queue: DispatchQueue.main, encoding: String.Encoding.utf8) { (response) in
+
+                        response.result.ifSuccess {
+                            let css = String(data: response.data!, encoding: String.Encoding.utf8)
+
+                            //webview
+                            let body = result["body"] as! String
+
+                            var html = "<html>"
+                            html += "<head>"
+                            html += "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover\">"
+                            html += "<style type=\"text/css\">"
+                            html += css!
+                            html += "</style>"
+                            html += "</head>"
+                            html += "<body>"
+                            html += body
+                            html += "</body>"
+                            html += "</html>"
+
+                            self.webview?.loadHTMLString((html), baseURL: nil)
+                        }
                     }
-                    
-                }
-            } catch  {}
-        } catch  {}
+                } catch  {}
+            }
+        }
     }
     
     //tool bar

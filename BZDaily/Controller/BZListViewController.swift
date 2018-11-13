@@ -191,7 +191,13 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     //delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let keyArray = self.listDict?.keys.sorted()
+        let key = keyArray![indexPath.section]
+        let array = self.listDict![key] as! Array <Any>
+        let object = array[indexPath.row] as! Dictionary<String, Any>
+        
         let storyController = BZStoryViewController.init()
+        storyController.storyID = (object["id"] as! NSNumber).stringValue
         self.navigationController?.pushViewController(storyController, animated: true)
     }
     
