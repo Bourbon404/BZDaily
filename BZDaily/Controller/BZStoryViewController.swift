@@ -18,6 +18,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
     var iconView : UIImageView?
     var titleLabel : UILabel?
     var authorLabel : UILabel?
+    var statusBarView : UIView?
     
     public var storyID : String?
     
@@ -56,6 +57,13 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
         
         self.toolBar = BZToolBarView.init(frame: CGRect.zero)
         self.view.addSubview(self.toolBar!)
+        
+        self.statusBarView = UIView.init()
+        self.statusBarView?.backgroundColor = UIColor.clear
+        self.view.addSubview(self.statusBarView!)
+        
+        
+        self.toolBar?.backButton?.addTarget(self, action: #selector(clickBackAction), for: UIControl.Event.touchUpInside)
         
     }
     
@@ -117,6 +125,14 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
             layout.isEnabled = true
         })
         
+        self.statusBarView?.configureLayout(block: { (layout) in
+            layout.isEnabled = true
+            layout.position = YGPositionType.absolute
+            layout.left = YGValue.init(integerLiteral: 0)
+            layout.right = YGValue.init(integerLiteral: 0)
+            layout.height = YGValue.init(integerLiteral: Int(UIApplication.shared.statusBarFrame.size.height))
+        })
+        
         self.view.configureLayout { (layout) in
             layout.isEnabled = true
             layout.flexDirection = YGFlexDirection.column
@@ -131,14 +147,22 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         let contentOffset = scrollView.contentOffset
+        
+        //控制状态栏
         if contentOffset.y <= 230 {
             
             UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
+            self.statusBarView?.backgroundColor = UIColor.clear
         } else {
             
             UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.default, animated: true)
+            self.statusBarView?.backgroundColor = UIColor.white
         }
         
+        //控制下拉距离
+        if (contentOffset.y < -100 && scrollView.isDragging) {
+            scrollView.setContentOffset(CGPoint.init(x: 0, y: -100), animated: false)
+        }
     }
     
     //content
@@ -217,5 +241,10 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
                 
             } catch  {}
         } catch  {}
+    }
+    
+    //action
+    @objc func clickBackAction() -> Void {
+        self.navigationController?.popViewController(animated: true)
     }
 }
