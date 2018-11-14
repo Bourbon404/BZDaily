@@ -107,6 +107,7 @@ class BZToolBarView: UIView {
             layout.isEnabled = true
             layout.left = YGValue.init(integerLiteral: 10)
             layout.top = YGValue.init(integerLiteral: -5)
+            layout.width = YGValue.init(integerLiteral: 40)
         })
         
         self.yoga.applyLayout(preservingOrigin: true)
@@ -125,6 +126,8 @@ class BZToolBarView: UIView {
     public func reloadCount(niceCount : String, commentCount : String) -> Void {
         self.niceLabel?.text = niceCount
         self.commentLabel?.text = commentCount
+        self.niceLabel?.sizeToFit()
+        self.commentLabel?.sizeToFit()
     }
     
 }

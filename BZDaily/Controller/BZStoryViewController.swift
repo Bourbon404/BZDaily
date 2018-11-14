@@ -79,6 +79,11 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
         self.reloadToolBar()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -226,21 +231,19 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
     
     //tool bar
     func reloadToolBar() -> Void {
-        let path = Bundle.main.path(forResource: "toolbar", ofType: nil)
-        let url = URL.init(fileURLWithPath: path!)
-        do {
-            let data = try Data.init(contentsOf: url)
-            
-            do {
-                let result = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
-                
-                let count = result["count"] as! Dictionary <String , Any>
-                let nice = (count["likes"] as! NSNumber).stringValue
-                let comments = (count["comments"] as! NSNumber).stringValue
-                self.toolBar?.reloadCount(niceCount: nice, commentCount: comments)
-                
-            } catch  {}
-        } catch  {}
+
+        let path = "https://news-at.zhihu.com/api/7/story-extra/" + self.storyID!
+        Alamofire.request(path).responseJSON(queue: DispatchQueue.main, options: JSONSerialization.ReadingOptions.allowFragments) { (response) in
+            response.result.ifSuccess {
+                do {
+                    let result = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String, Any>
+                    let count = result["count"] as! Dictionary <String , Any>
+                    let nice = (count["likes"] as! NSNumber).stringValue
+                    let comments = (count["comments"] as! NSNumber).stringValue
+                    self.toolBar?.reloadCount(niceCount: nice, commentCount: comments)
+                } catch{}
+            }
+        }
     }
     
     //action

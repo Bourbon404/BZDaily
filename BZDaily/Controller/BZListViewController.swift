@@ -17,7 +17,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     var naviView : BZNaviView?
     var model : BZListModel?
     
-    var listDict : Dictionary<Date, Any>?
+    var listDict : Dictionary<String, Any>?
     var topArray : Array<Any>?
     
 
@@ -37,7 +37,6 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         
         //header
         self.listHeaderView = BZTableHeaderView.init(frame: CGRect.zero)
-        self.listHeaderView?.backgroundColor = UIColor.red
         self.view.addSubview(self.listHeaderView!)
         
         //table
@@ -73,42 +72,40 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         
         self.addObserver()
         
-        //        let header : HTTPHeaders = [
-        //            "authorization":"Bearer 1pil2HanTpum33V5hDJEIw"
-        //        ]
-        //        Alamofire.request("https://news-at.zhihu.com/api/7/stories/latest", headers: header).responseJSON { (response) in
-        ////            self.model = BZListModel.yy_model(withJSON: response.result.value)
-        ////            self.listTable?.reloadData()
-        //
-        //            let data = response.value
-        ////            let dict = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! Dictionary
-        ////            self.listArray = dict!["top_stories"]
-        ////            self.topArray = dict!["stories"]
-        //            self.listTable?.reloadData()
-        //        }
-        
         let path = Bundle.main.path(forResource: "result", ofType: "json")
         let url = URL.init(fileURLWithPath: path!)
-        
+
         do {
             let data = try Data.init(contentsOf: url)
-            
+
             do {
                 let result = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
+                let dateString = result["date"] as! String
+
                 let array = (result["stories"] as? Array<Any>)
-                self.listDict?.updateValue(array as Any, forKey: Date.init())
-                self.listDict?.updateValue(array as Any, forKey: Date.init().addingTimeInterval(10000))
-                
+                self.listDict?.updateValue(array as Any, forKey: dateString)
+
                 self.topArray = result["top_stories"] as? Array<Any>
                 self.listTable?.reloadData()
                 self.listHeaderView?.reloadScrollView(object: self.topArray!)
-            } catch  {
-                
-            }
-            
-        } catch  {
-            
-        }
+            } catch  {}
+        } catch  {}
+
+//        Alamofire.request("https://news-at.zhihu.com/api/4/news/latest").responseJSON(queue: DispatchQueue.main, options: JSONSerialization.ReadingOptions.allowFragments) { (response) in
+//            response.result.ifSuccess {
+//                do {
+//                    let result = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
+//                    let array = result["stories"]
+//                    let dateString = result["date"] as! String
+//
+//                    self.listDict?.updateValue(array as Any, forKey: dateString)
+//                    self.listTable?.reloadData()
+//
+//                    self.topArray = result["top_stories"] as? Array<Any>
+//                    self.listHeaderView?.reloadScrollView(object: self.topArray!)
+//                } catch  {}
+//            }
+//        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -165,19 +162,16 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         let keyArray = self.listDict?.keys.sorted()
         let key = keyArray![section]
         let array = self.listDict![key] as! Array <Any>
-        
         return array.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
+
         return (self.listDict?.keys.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! BZTableViewCell
-        
-        
         
         let keyArray = self.listDict?.keys.sorted()
         let key = keyArray![indexPath.section]
@@ -208,7 +202,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         let keyArray = self.listDict?.keys.sorted()
         let key = keyArray![section]
         
-        view.date = key
+        view.dateSring = key
     
         return view;
     }
@@ -241,8 +235,5 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             rect.size.height = newHeight
             self.listHeaderView?.frame = rect
         }
-        
-        print(self.listHeaderView?.frame as Any)
-
     }
 }

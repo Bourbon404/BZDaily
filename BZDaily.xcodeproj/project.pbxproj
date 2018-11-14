@@ -10,9 +10,6 @@
 		8C70D833216D015CD1B43B1D /* Pods_BZDailyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD46363C87A83F53C5B62991 /* Pods_BZDailyTests.framework */; };
 		9F11C63C2195B279005EB7FC /* BZStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F11C63B2195B279005EB7FC /* BZStoryViewController.swift */; };
 		9F11C63E2195B291005EB7FC /* BZToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F11C63D2195B291005EB7FC /* BZToolBarView.swift */; };
-		9F11C6402195BAF6005EB7FC /* story in Resources */ = {isa = PBXBuildFile; fileRef = 9F11C63F2195BAF6005EB7FC /* story */; };
-		9F11C6442195D424005EB7FC /* toolbar in Resources */ = {isa = PBXBuildFile; fileRef = 9F11C6432195D424005EB7FC /* toolbar */; };
-		9F3449FA2190743C009394D3 /* result.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F3449F92190743C009394D3 /* result.json */; };
 		9F98053D218326C800F2A51F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98053C218326C800F2A51F /* AppDelegate.swift */; };
 		9F980542218326C800F2A51F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F980540218326C800F2A51F /* Main.storyboard */; };
 		9F980545218326C800F2A51F /* BZDaily.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F980543218326C800F2A51F /* BZDaily.xcdatamodeld */; };
@@ -32,6 +29,9 @@
 		9F9805922183794200F2A51F /* BZTopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9805912183794200F2A51F /* BZTopModel.swift */; };
 		9F9805942183794D00F2A51F /* BZStoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9805932183794D00F2A51F /* BZStoryModel.swift */; };
 		9FA5517C219478E7003012C0 /* BZProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5517B219478E7003012C0 /* BZProgressCircleView.swift */; };
+		9FD929DD219C3BE200C70683 /* BZLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD929DC219C3BE200C70683 /* BZLoginManager.swift */; };
+		9FD929DF219C3E9E00C70683 /* BZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD929DE219C3E9E00C70683 /* BZUser.swift */; };
+		9FD929E1219C44E900C70683 /* result.json in Resources */ = {isa = PBXBuildFile; fileRef = 9FD929E0219C44E900C70683 /* result.json */; };
 		D8B037C567CBEF86DFD2E44F /* Pods_BZDaily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF0A0442D6AB2F9A40F7E81 /* Pods_BZDaily.framework */; };
 		E718C9A9A451C4D419BD743C /* Pods_BZDailyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F47D82C175BAE014D5C07835 /* Pods_BZDailyUITests.framework */; };
 /* End PBXBuildFile section */
@@ -60,9 +60,6 @@
 		829179BABE207CB9B2662D30 /* Pods-BZDailyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyTests/Pods-BZDailyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F11C63B2195B279005EB7FC /* BZStoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZStoryViewController.swift; sourceTree = "<group>"; };
 		9F11C63D2195B291005EB7FC /* BZToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZToolBarView.swift; sourceTree = "<group>"; };
-		9F11C63F2195BAF6005EB7FC /* story */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = story; sourceTree = "<group>"; };
-		9F11C6432195D424005EB7FC /* toolbar */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = toolbar; sourceTree = "<group>"; };
-		9F3449F92190743C009394D3 /* result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result.json; sourceTree = "<group>"; };
 		9F980539218326C800F2A51F /* BZDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BZDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F98053C218326C800F2A51F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F980541218326C800F2A51F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -88,6 +85,9 @@
 		9F9805912183794200F2A51F /* BZTopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZTopModel.swift; sourceTree = "<group>"; };
 		9F9805932183794D00F2A51F /* BZStoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZStoryModel.swift; sourceTree = "<group>"; };
 		9FA5517B219478E7003012C0 /* BZProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZProgressCircleView.swift; sourceTree = "<group>"; };
+		9FD929DC219C3BE200C70683 /* BZLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZLoginManager.swift; sourceTree = "<group>"; };
+		9FD929DE219C3E9E00C70683 /* BZUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZUser.swift; sourceTree = "<group>"; };
+		9FD929E0219C44E900C70683 /* result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result.json; sourceTree = "<group>"; };
 		ACF0A0442D6AB2F9A40F7E81 /* Pods_BZDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BZDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C655C42E5152A5E8400FE02B /* Pods-BZDailyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyUITests/Pods-BZDailyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CD46363C87A83F53C5B62991 /* Pods_BZDailyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BZDailyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,9 +171,7 @@
 		9F98053B218326C800F2A51F /* BZDaily */ = {
 			isa = PBXGroup;
 			children = (
-				9F3449F92190743C009394D3 /* result.json */,
-				9F11C63F2195BAF6005EB7FC /* story */,
-				9F11C6432195D424005EB7FC /* toolbar */,
+				9FD929DB219C3BC800C70683 /* Manager */,
 				9F98053C218326C800F2A51F /* AppDelegate.swift */,
 				9F98058E218378D800F2A51F /* Model */,
 				9F9805772183285400F2A51F /* View */,
@@ -246,6 +244,16 @@
 				9F9805932183794D00F2A51F /* BZStoryModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9FD929DB219C3BC800C70683 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9FD929DC219C3BE200C70683 /* BZLoginManager.swift */,
+				9FD929DE219C3E9E00C70683 /* BZUser.swift */,
+				9FD929E0219C44E900C70683 /* result.json */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,12 +365,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F11C6442195D424005EB7FC /* toolbar in Resources */,
 				9F98054A218326CA00F2A51F /* LaunchScreen.storyboard in Resources */,
 				9F980547218326CA00F2A51F /* Assets.xcassets in Resources */,
-				9F3449FA2190743C009394D3 /* result.json in Resources */,
+				9FD929E1219C44E900C70683 /* result.json in Resources */,
 				9F980542218326C800F2A51F /* Main.storyboard in Resources */,
-				9F11C6402195BAF6005EB7FC /* story in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,12 +499,14 @@
 				9F98057F218329DD00F2A51F /* BZScrollView.swift in Sources */,
 				9F980545218326C800F2A51F /* BZDaily.xcdatamodeld in Sources */,
 				9F98053D218326C800F2A51F /* AppDelegate.swift in Sources */,
+				9FD929DD219C3BE200C70683 /* BZLoginManager.swift in Sources */,
 				9F980571218327FD00F2A51F /* BZListViewController.swift in Sources */,
 				9F11C63E2195B291005EB7FC /* BZToolBarView.swift in Sources */,
 				9F9805922183794200F2A51F /* BZTopModel.swift in Sources */,
 				9FA5517C219478E7003012C0 /* BZProgressCircleView.swift in Sources */,
 				9F9805742183283700F2A51F /* BZView.swift in Sources */,
 				9F9805852183318500F2A51F /* BZTableHeaderView.swift in Sources */,
+				9FD929DF219C3E9E00C70683 /* BZUser.swift in Sources */,
 				9F98057B2183287F00F2A51F /* BZTableViewCell.swift in Sources */,
 				9F11C63C2195B279005EB7FC /* BZStoryViewController.swift in Sources */,
 				9F9805902183793800F2A51F /* BZListModel.swift in Sources */,

@@ -13,8 +13,13 @@ class BZSectionHeaderView: UITableViewHeaderFooterView {
     var colorBackgroundView : UIView?
     var formatter : DateFormatter?
     
-    var date : Date? {
+    var dateSring : String? {
         didSet {
+            
+            let dateFormatter = DateFormatter.init()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            let date = dateFormatter.date(from: dateSring!)
+            
             let string = self.formatter?.string(from: date!)
             self.dateLabel?.text = string!
         }
@@ -34,6 +39,7 @@ class BZSectionHeaderView: UITableViewHeaderFooterView {
         
         self.formatter = DateFormatter.init()
         self.formatter?.dateFormat = "MM月dd日 EEEE"
+        self.formatter?.locale = Locale.current
         
         self.dateLabel = UILabel.init()
         self.dateLabel?.textColor = UIColor.white
