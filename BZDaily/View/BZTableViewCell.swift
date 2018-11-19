@@ -52,6 +52,7 @@ class BZTableViewCell: UITableViewCell {
         
         //titleLabel
         self.titleLabel = UILabel.init()
+        self.titleLabel?.numberOfLines = 0
         self.contentView.addSubview(self.titleLabel!)
         
         //iconView

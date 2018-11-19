@@ -8,12 +8,19 @@
 
 import UIKit
 import YogaKit
+
+protocol BZTableHeaderViewDelegate {
+    func didClickHeaderViewWithItem(item:Any)
+}
+
 class BZTableHeaderView: UIView, UIScrollViewDelegate {
     
     var listScroll : BZScrollView?
     var pageControl : UIPageControl?
     var timer : Timer?
-
+    var allItem : Array<Any>?
+    var delegate : BZTableHeaderViewDelegate?
+    
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -75,7 +82,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         self.yoga.applyLayout(preservingOrigin: true)
     }
     
-    func addSubView(url: URL, title:String) -> Void {
+    func addSubView(url: URL, title:String, tag:Int) -> Void {
         let imageView = UIImageView.init()
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.sd_setImage(with: url, completed: nil)
@@ -103,11 +110,16 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
             layout.marginLeft = YGValue.init(integerLiteral: 15)
             layout.marginRight = YGValue.init(integerLiteral: 40)
         }
-        
+        //add gesture
+        imageView.isUserInteractionEnabled = true
+        imageView.tag = tag
+        let gesture = UITapGestureRecognizer.init(target: self, action: #selector(didClickItem(gesture:)))
+        imageView.addGestureRecognizer(gesture)
     }
     
     public func reloadScrollView(object : Array<Any>) -> Void {
         
+        self.allItem = object
         
         self.pageControl?.numberOfPages = object.count
         //data
@@ -117,7 +129,9 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
             let url = URL.init(string: imagePath as! String)
             
             let title = tmp["title"]
-            self.addSubView(url: url!, title: title as! String)
+            
+            let tag = (object as NSArray).index(of: dict)
+            self.addSubView(url: url!, title: title as! String, tag: tag)
             
         }
         self.listScroll?.contentSize = CGSize.init(width: CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)! * CGFloat(object.count)), height: 240 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
@@ -162,5 +176,14 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         
     }
     
+
+    @objc func didClickItem(gesture:UIGestureRecognizer) -> Void {
+        
+        if (self.delegate != nil) {
+            let view = gesture.view
+            let object = self.allItem![(view?.tag)!]
+            self.delegate?.didClickHeaderViewWithItem(item: object)
+        }
+    }
     
 }

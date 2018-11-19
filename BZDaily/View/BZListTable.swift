@@ -18,4 +18,10 @@ class BZListTable: UITableView {
     }
     */
     
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let headerView = self.tableHeaderView
+        if (headerView?.frame.contains(point))! {
+            return nil
+        }; return super.hitTest(point, with: event)
+    }
 }

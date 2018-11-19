@@ -10,7 +10,7 @@ import UIKit
 import YogaKit
 import Alamofire
 
-class BZListViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+class BZListViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, BZTableHeaderViewDelegate {
 
     var listTable : BZListTable?
     var listHeaderView : BZTableHeaderView?
@@ -37,6 +37,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         
         //header
         self.listHeaderView = BZTableHeaderView.init(frame: CGRect.zero)
+        self.listHeaderView?.delegate = self
         self.view.addSubview(self.listHeaderView!)
         
         //table
@@ -71,41 +72,22 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
         
         self.addObserver()
-        
-        let path = Bundle.main.path(forResource: "result", ofType: "json")
-        let url = URL.init(fileURLWithPath: path!)
+    
+        Alamofire.request("https://news-at.zhihu.com/api/4/news/latest").responseJSON(queue: DispatchQueue.main, options: JSONSerialization.ReadingOptions.allowFragments) { (response) in
+            response.result.ifSuccess {
+                do {
+                    let result = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
+                    let array = result["stories"]
+                    let dateString = result["date"] as! String
 
-        do {
-            let data = try Data.init(contentsOf: url)
+                    self.listDict?.updateValue(array as Any, forKey: dateString)
+                    self.listTable?.reloadData()
 
-            do {
-                let result = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
-                let dateString = result["date"] as! String
-
-                let array = (result["stories"] as? Array<Any>)
-                self.listDict?.updateValue(array as Any, forKey: dateString)
-
-                self.topArray = result["top_stories"] as? Array<Any>
-                self.listTable?.reloadData()
-                self.listHeaderView?.reloadScrollView(object: self.topArray!)
-            } catch  {}
-        } catch  {}
-
-//        Alamofire.request("https://news-at.zhihu.com/api/4/news/latest").responseJSON(queue: DispatchQueue.main, options: JSONSerialization.ReadingOptions.allowFragments) { (response) in
-//            response.result.ifSuccess {
-//                do {
-//                    let result = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
-//                    let array = result["stories"]
-//                    let dateString = result["date"] as! String
-//
-//                    self.listDict?.updateValue(array as Any, forKey: dateString)
-//                    self.listTable?.reloadData()
-//
-//                    self.topArray = result["top_stories"] as? Array<Any>
-//                    self.listHeaderView?.reloadScrollView(object: self.topArray!)
-//                } catch  {}
-//            }
-//        }
+                    self.topArray = result["top_stories"] as? Array<Any>
+                    self.listHeaderView?.reloadScrollView(object: self.topArray!)
+                } catch  {}
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -127,6 +109,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             layout.marginBottom = YGValue.init(integerLiteral: 0)
             layout.marginLeft = YGValue.init(integerLiteral: 0)
             layout.marginRight = YGValue.init(integerLiteral: 0)
+            layout.flexGrow = 1
         })
         
         self.naviView?.configureLayout(block: { (layout) in
@@ -235,5 +218,14 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             rect.size.height = newHeight
             self.listHeaderView?.frame = rect
         }
+    }
+    
+    //点击头部视图
+    func didClickHeaderViewWithItem(item: Any) {
+        
+        let object = item as! Dictionary <String , Any>
+        let storyController = BZStoryViewController.init()
+        storyController.storyID = (object["id"] as! NSNumber).stringValue
+        self.navigationController?.pushViewController(storyController, animated: true)
     }
 }

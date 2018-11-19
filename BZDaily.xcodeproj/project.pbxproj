@@ -31,7 +31,6 @@
 		9FA5517C219478E7003012C0 /* BZProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5517B219478E7003012C0 /* BZProgressCircleView.swift */; };
 		9FD929DD219C3BE200C70683 /* BZLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD929DC219C3BE200C70683 /* BZLoginManager.swift */; };
 		9FD929DF219C3E9E00C70683 /* BZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD929DE219C3E9E00C70683 /* BZUser.swift */; };
-		9FD929E1219C44E900C70683 /* result.json in Resources */ = {isa = PBXBuildFile; fileRef = 9FD929E0219C44E900C70683 /* result.json */; };
 		D8B037C567CBEF86DFD2E44F /* Pods_BZDaily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF0A0442D6AB2F9A40F7E81 /* Pods_BZDaily.framework */; };
 		E718C9A9A451C4D419BD743C /* Pods_BZDailyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F47D82C175BAE014D5C07835 /* Pods_BZDailyUITests.framework */; };
 /* End PBXBuildFile section */
@@ -87,7 +86,6 @@
 		9FA5517B219478E7003012C0 /* BZProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZProgressCircleView.swift; sourceTree = "<group>"; };
 		9FD929DC219C3BE200C70683 /* BZLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZLoginManager.swift; sourceTree = "<group>"; };
 		9FD929DE219C3E9E00C70683 /* BZUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZUser.swift; sourceTree = "<group>"; };
-		9FD929E0219C44E900C70683 /* result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result.json; sourceTree = "<group>"; };
 		ACF0A0442D6AB2F9A40F7E81 /* Pods_BZDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BZDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C655C42E5152A5E8400FE02B /* Pods-BZDailyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyUITests/Pods-BZDailyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CD46363C87A83F53C5B62991 /* Pods_BZDailyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BZDailyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,7 +249,6 @@
 			children = (
 				9FD929DC219C3BE200C70683 /* BZLoginManager.swift */,
 				9FD929DE219C3E9E00C70683 /* BZUser.swift */,
-				9FD929E0219C44E900C70683 /* result.json */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -367,7 +364,6 @@
 			files = (
 				9F98054A218326CA00F2A51F /* LaunchScreen.storyboard in Resources */,
 				9F980547218326CA00F2A51F /* Assets.xcassets in Resources */,
-				9FD929E1219C44E900C70683 /* result.json in Resources */,
 				9F980542218326C800F2A51F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
