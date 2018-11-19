@@ -57,10 +57,9 @@ class BZNaviView: UIView {
         super.layoutSubviews()
         self.titleLabel?.configureLayout(block: { (layout) in
             layout.isEnabled = true
-            layout.marginTop = YGValue.init(CGFloat(20 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
-            layout.marginLeft = YGValue.init(integerLiteral: 0)
-            layout.marginRight = YGValue.init(integerLiteral: 0)
+            layout.flexGrow = 1
             layout.height = YGValue.init(integerLiteral: 47)
+            layout.alignSelf = YGAlign.flexEnd
             layout.flexDirection = YGFlexDirection.row
         })
 
@@ -83,6 +82,7 @@ class BZNaviView: UIView {
         })
         
         self.yoga.isEnabled = true
+        self.yoga.flexDirection = YGFlexDirection.row
         self.yoga.applyLayout(preservingOrigin: true)
     }
     

@@ -85,6 +85,9 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
 
                     self.topArray = result["top_stories"] as? Array<Any>
                     self.listHeaderView?.reloadScrollView(object: self.topArray!)
+                    
+                    BZCacheManager.saveObject(data: response.data!, key: (response.request?.url?.absoluteString)!)
+                    
                 } catch  {}
             }
         }
@@ -117,7 +120,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             layout.left = YGValue.init(floatLiteral: 0)
             layout.right = YGValue.init(floatLiteral: 0)
             layout.top = YGValue.init(integerLiteral: 0)
-            layout.height = YGValue.init(integerLiteral: Int(67 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+            layout.height = YGValue.init(integerLiteral: Int(47 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
             layout.position = YGPositionType.absolute
         })
         

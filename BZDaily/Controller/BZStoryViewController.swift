@@ -11,7 +11,7 @@ import YogaKit
 import WebKit
 import SDWebImage
 import Alamofire
-class BZStoryViewController: UIViewController , UIScrollViewDelegate {
+class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigationDelegate {
 
     var toolBar : BZToolBarView?
     var webview : WKWebView?
@@ -29,6 +29,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
         self.view.backgroundColor = UIColor.white
         
         self.webview = WKWebView.init()
+        self.webview?.navigationDelegate = self
         self.webview?.scrollView.showsVerticalScrollIndicator = false
         self.webview?.scrollView.showsHorizontalScrollIndicator = false
         self.webview?.scrollView.delegate = self
@@ -38,6 +39,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
         self.iconView = UIImageView.init()
         self.iconView?.contentMode = UIView.ContentMode.scaleAspectFill
         self.iconView?.clipsToBounds = true
+        self.iconView?.isHidden = true
         self.webview?.scrollView.addSubview(self.iconView!)
         
         self.titleLabel = UILabel.init()
@@ -91,7 +93,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
             layout.isEnabled = true
             layout.position = YGPositionType.absolute
             layout.top = YGValue.init(integerLiteral: Int(-(UIApplication.shared.statusBarFrame.height)))
-            layout.height = YGValue.init(integerLiteral: 230)
+            layout.height = YGValue.init(integerLiteral: Int(230 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
             layout.width = YGValue.init(CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)!))
         })
         
@@ -106,9 +108,9 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
         self.authorLabel?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.position = YGPositionType.absolute
-            layout.alignSelf = YGAlign.flexEnd
-            layout.marginRight = YGValue.init(integerLiteral: 15)
-            layout.bottom = YGValue.init(integerLiteral: Int(20 + UIApplication.shared.statusBarFrame.height))
+            layout.flexGrow = 1
+            layout.right = YGValue.init(integerLiteral: 15)
+            layout.bottom = YGValue.init(integerLiteral: 20)
         })
         
         self.webview?.configureLayout(block: { (layout) in
@@ -189,7 +191,10 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
                     //author
                     let author = result["image_source"]
                     self.authorLabel?.text = (author as! String)
-
+                    self.authorLabel?.yoga.markDirty()
+                    self.authorLabel?.yoga.right = YGValue.init(integerLiteral: 15)
+                    self.iconView?.yoga.applyLayout(preservingOrigin: true)
+                    
                     self.titleLabel?.sizeToFit()
                     self.authorLabel?.sizeToFit()
                     //icon
@@ -249,5 +254,10 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate {
     //action
     @objc func clickBackAction() -> Void {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //webview Delegate
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        self.iconView?.isHidden = false
     }
 }

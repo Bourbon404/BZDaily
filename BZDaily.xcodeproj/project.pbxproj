@@ -10,6 +10,7 @@
 		8C70D833216D015CD1B43B1D /* Pods_BZDailyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD46363C87A83F53C5B62991 /* Pods_BZDailyTests.framework */; };
 		9F11C63C2195B279005EB7FC /* BZStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F11C63B2195B279005EB7FC /* BZStoryViewController.swift */; };
 		9F11C63E2195B291005EB7FC /* BZToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F11C63D2195B291005EB7FC /* BZToolBarView.swift */; };
+		9F5C56C021A2BC75005E1417 /* BZCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C56BF21A2BC75005E1417 /* BZCacheManager.swift */; };
 		9F98053D218326C800F2A51F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F98053C218326C800F2A51F /* AppDelegate.swift */; };
 		9F980542218326C800F2A51F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F980540218326C800F2A51F /* Main.storyboard */; };
 		9F980545218326C800F2A51F /* BZDaily.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F980543218326C800F2A51F /* BZDaily.xcdatamodeld */; };
@@ -59,6 +60,7 @@
 		829179BABE207CB9B2662D30 /* Pods-BZDailyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyTests/Pods-BZDailyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F11C63B2195B279005EB7FC /* BZStoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZStoryViewController.swift; sourceTree = "<group>"; };
 		9F11C63D2195B291005EB7FC /* BZToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZToolBarView.swift; sourceTree = "<group>"; };
+		9F5C56BF21A2BC75005E1417 /* BZCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZCacheManager.swift; sourceTree = "<group>"; };
 		9F980539218326C800F2A51F /* BZDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BZDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F98053C218326C800F2A51F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F980541218326C800F2A51F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -169,17 +171,17 @@
 		9F98053B218326C800F2A51F /* BZDaily */ = {
 			isa = PBXGroup;
 			children = (
-				9FD929DB219C3BC800C70683 /* Manager */,
 				9F98053C218326C800F2A51F /* AppDelegate.swift */,
-				9F98058E218378D800F2A51F /* Model */,
-				9F9805772183285400F2A51F /* View */,
-				9F9805722183282200F2A51F /* Root */,
-				9F98056D218327B900F2A51F /* Controller */,
 				9F980540218326C800F2A51F /* Main.storyboard */,
 				9F980546218326CA00F2A51F /* Assets.xcassets */,
 				9F980548218326CA00F2A51F /* LaunchScreen.storyboard */,
 				9F98054B218326CA00F2A51F /* Info.plist */,
 				9F980543218326C800F2A51F /* BZDaily.xcdatamodeld */,
+				9FD929DB219C3BC800C70683 /* Manager */,
+				9F98058E218378D800F2A51F /* Model */,
+				9F9805772183285400F2A51F /* View */,
+				9F9805722183282200F2A51F /* Root */,
+				9F98056D218327B900F2A51F /* Controller */,
 			);
 			path = BZDaily;
 			sourceTree = "<group>";
@@ -249,6 +251,7 @@
 			children = (
 				9FD929DC219C3BE200C70683 /* BZLoginManager.swift */,
 				9FD929DE219C3E9E00C70683 /* BZUser.swift */,
+				9F5C56BF21A2BC75005E1417 /* BZCacheManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				9F98058B21835F1B00F2A51F /* BZNaviView.swift in Sources */,
 				9F98058D2183611E00F2A51F /* BZSectionHeaderView.swift in Sources */,
 				9F9805942183794D00F2A51F /* BZStoryModel.swift in Sources */,
+				9F5C56C021A2BC75005E1417 /* BZCacheManager.swift in Sources */,
 				9F9805792183286A00F2A51F /* BZListTable.swift in Sources */,
 				9F98057F218329DD00F2A51F /* BZScrollView.swift in Sources */,
 				9F980545218326C800F2A51F /* BZDaily.xcdatamodeld in Sources */,

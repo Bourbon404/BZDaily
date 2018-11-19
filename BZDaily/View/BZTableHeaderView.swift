@@ -73,7 +73,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         self.pageControl?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.position = YGPositionType.absolute
-            layout.bottom = YGValue.init(floatLiteral: 0)
+            layout.bottom = YGValue.init(floatLiteral: 10)
             layout.marginLeft = YGValue.init(floatLiteral: 0)
             layout.marginRight = YGValue.init(floatLiteral: 0)
         })
@@ -105,8 +105,8 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         imageView.addSubview(label)
         label.configureLayout { (layout) in
             layout.isEnabled = true
-            layout.marginTop = YGValue.init(integerLiteral: 145)
-            layout.marginBottom = YGValue.init(integerLiteral: 35)
+            layout.marginTop = YGValue.init(integerLiteral: Int(145 + ((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!)))
+            layout.marginBottom = YGValue.init(integerLiteral: 0)
             layout.marginLeft = YGValue.init(integerLiteral: 15)
             layout.marginRight = YGValue.init(integerLiteral: 40)
         }
