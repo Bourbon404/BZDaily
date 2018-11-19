@@ -18,16 +18,26 @@ class BZToolBarView: UIView {
     
     var niceLabel : UILabel?
     var commentLabel : UILabel?
-    /*
+    
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         // Drawing code
+        super.draw(rect)
+        
+        let path = UIBezierPath.init()
+        path.move(to: CGPoint.init(x: 0, y: 0))
+        path.addLine(to: CGPoint.init(x: self.frame.size.width, y: 0))
+        path.lineWidth = 1.0 / UIScreen.main.scale
+        UIColor.lightGray.set()
+        path.stroke()
     }
-    */
+ 
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.backgroundColor = UIColor.white
         
         self.backButton = self.createButton(iconName: "zuobian")
         self.nextButton = self.createButton(iconName: "down-trangle")
@@ -41,9 +51,6 @@ class BZToolBarView: UIView {
         self.addSubview(self.shareButton!)
         self.addSubview(self.commentButton!)
 
-        self.layer.borderColor = UIColor.lightGray.cgColor
-        self.layer.borderWidth = 1.0 / UIScreen.main.scale
-        
         self.niceLabel = UILabel.init()
         self.niceLabel?.font = UIFont.systemFont(ofSize: 8)
         self.niceLabel?.textColor = UIColor.gray

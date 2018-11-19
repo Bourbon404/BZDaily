@@ -125,7 +125,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
             layout.isEnabled = true
             layout.height = YGValue.init(integerLiteral: 42)
             layout.width = YGValue.init(CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)!))
-
+            layout.marginBottom = YGValue.init(CGFloat((UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
         })
         
         self.webview?.scrollView.configureLayout(block: { (layout) in
