@@ -91,7 +91,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
         self.iconView?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.position = YGPositionType.absolute
-            layout.height = YGValue.init(integerLiteral: Int(230 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+            layout.height = YGValue.init(integerLiteral: 200)
             layout.width = YGValue.init(CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)!))
         })
         
@@ -100,7 +100,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
             layout.position = YGPositionType.absolute
             layout.left = YGValue.init(integerLiteral: 15)
             layout.right = YGValue.init(integerLiteral: 15)
-            layout.bottom = YGValue.init(integerLiteral: Int(50 + UIApplication.shared.statusBarFrame.height))
+            layout.bottom = YGValue.init(integerLiteral: Int(50))
         })
         
         self.authorLabel?.configureLayout(block: { (layout) in
@@ -154,7 +154,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
         let contentOffset = scrollView.contentOffset
         
         //控制状态栏
-        if contentOffset.y <= 230 {
+        if contentOffset.y <= 200 {
             
             UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
             self.statusBarView?.backgroundColor = UIColor.clear
@@ -204,6 +204,9 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
                     let cssPathArray = (result["css"] as? Array<Any>)
                     let cssPath = cssPathArray?.first as! String
 
+                    //reload view
+                    self.titleLabel?.yoga.markDirty()
+                    self.iconView?.yoga.applyLayout(preservingOrigin: true)
                     Alamofire.request(cssPath).responseString(queue: DispatchQueue.main, encoding: String.Encoding.utf8) { (response) in
 
                         response.result.ifSuccess {

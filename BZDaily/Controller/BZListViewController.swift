@@ -120,7 +120,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             layout.left = YGValue.init(floatLiteral: 0)
             layout.right = YGValue.init(floatLiteral: 0)
             layout.top = YGValue.init(integerLiteral: 0)
-            layout.height = YGValue.init(integerLiteral: Int(47 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
+            layout.height = YGValue.init(integerLiteral: Int(47 + (UIApplication.shared.keyWindow?.safeAreaInsets.top)!))
             layout.position = YGPositionType.absolute
         })
         
