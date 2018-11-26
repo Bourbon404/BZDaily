@@ -228,6 +228,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         
         let object = item as! Dictionary <String , Any>
         let storyController = BZStoryViewController.init()
+        storyController.navigationController?.isNavigationBarHidden = true
         storyController.storyID = (object["id"] as! NSNumber).stringValue
         self.navigationController?.pushViewController(storyController, animated: true)
     }

@@ -33,7 +33,6 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
         self.webview?.scrollView.showsVerticalScrollIndicator = false
         self.webview?.scrollView.showsHorizontalScrollIndicator = false
         self.webview?.scrollView.delegate = self
-        self.webview?.scrollView.contentInset = UIEdgeInsets.init(top: UIApplication.shared.statusBarFrame.size.height, left: 0, bottom: 0, right: 0)
         self.view.addSubview(self.webview!)
         
         self.iconView = UIImageView.init()
@@ -92,7 +91,6 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
         self.iconView?.configureLayout(block: { (layout) in
             layout.isEnabled = true
             layout.position = YGPositionType.absolute
-            layout.top = YGValue.init(integerLiteral: Int(-(UIApplication.shared.statusBarFrame.height)))
             layout.height = YGValue.init(integerLiteral: Int(230 + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!))
             layout.width = YGValue.init(CGFloat((UIApplication.shared.keyWindow?.bounds.size.width)!))
         })
