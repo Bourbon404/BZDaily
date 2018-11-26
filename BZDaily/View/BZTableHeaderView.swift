@@ -43,6 +43,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         self.listScroll = BZScrollView()
         self.listScroll?.isPagingEnabled = true
         self.listScroll?.delegate = self
+        self.listScroll?.isUserInteractionEnabled = false
         self.listScroll?.showsHorizontalScrollIndicator = false
         self.listScroll?.showsVerticalScrollIndicator = false
         self.addSubview(self.listScroll!)

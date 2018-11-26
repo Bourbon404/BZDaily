@@ -64,23 +64,24 @@ class BZTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.titleLabel?.configureLayout(block: { (layout) in
-            layout.isEnabled = true
-            layout.marginTop = YGValue.init(integerLiteral: 15)
-            layout.marginLeft = YGValue.init(integerLiteral: 10)
-            layout.height = YGValue.init(integerLiteral: 20)
-            layout.flexGrow = 1
-        })
-        
         self.iconView?.configureLayout(block: { (layout) in
             layout.isEnabled = true
+            layout.position = YGPositionType.absolute
             layout.width = YGValue.init(integerLiteral: 75)
             layout.height = YGValue.init(integerLiteral: 60)
-            layout.marginTop = YGValue.init(integerLiteral: 15)
-            layout.marginRight = YGValue.init(integerLiteral: 15)
+            layout.alignSelf = YGAlign.center
+            layout.right = YGValue.init(integerLiteral: 15)
             layout.marginLeft = YGValue.init(integerLiteral: 15)
         })
         
+        self.titleLabel?.configureLayout(block: { (layout) in
+            layout.isEnabled = true
+            layout.left = YGValue.init(integerLiteral: 10)
+            layout.marginTop = YGValue.init(integerLiteral: 15)
+            layout.alignSelf = YGAlign.flexStart
+            layout.marginRight = YGValue.init(integerLiteral: 90)
+        })
+
         self.contentView.configureLayout { (layout) in
             layout.isEnabled = true
             layout.flexDirection = YGFlexDirection.row
