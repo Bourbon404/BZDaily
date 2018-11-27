@@ -70,25 +70,18 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-        self.addObserver()
-    
-        Alamofire.request("https://news-at.zhihu.com/api/4/news/latest").responseJSON(queue: DispatchQueue.main, options: JSONSerialization.ReadingOptions.allowFragments) { (response) in
-            response.result.ifSuccess {
-                do {
-                    let result = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
-                    let array = result["stories"]
-                    let dateString = result["date"] as! String
-
-                    self.listDict?.updateValue(array as Any, forKey: dateString)
-                    self.listTable?.reloadData()
-
-                    self.topArray = result["top_stories"] as? Array<Any>
-                    self.listHeaderView?.reloadScrollView(object: self.topArray!)
+        let listURL = "https://news-at.zhihu.com/api/4/news/latest"
+        let cacheData = BZCacheManager.objectFromKey(key: "latest")
+        if (cacheData != nil) {
+            self.configData(data: cacheData! as Data)
+        } else {
+            Alamofire.request(listURL).responseJSON(queue: DispatchQueue.main, options: JSONSerialization.ReadingOptions.allowFragments) { (response) in
+                response.result.ifSuccess {
                     
-                    BZCacheManager.saveObject(data: response.data!, key: (response.request?.url?.absoluteString)!)
-                    
-                } catch  {}
+                    self.configData(data: response.data!)
+                    self.addObserver()
+                    BZCacheManager.saveObject(data: response.data!, key: "latest")
+                }
             }
         }
     }
@@ -139,6 +132,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     //observer
     func addObserver() -> Void {
         self.listTable?.addObserver(self.naviView!, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
+//        self.listTable?.addObserver(self.listHeaderView!, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
     
@@ -221,6 +215,22 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             rect.size.height = newHeight
             self.listHeaderView?.frame = rect
         }
+    }
+    
+    //配置数据
+    func configData(data:Data) -> Void {
+        
+        do {
+            let result = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! Dictionary<String,Any>
+            let array = result["stories"]
+            let dateString = result["date"] as! String
+            
+            self.listDict?.updateValue(array as Any, forKey: dateString)
+            self.listTable?.reloadData()
+            
+            self.topArray = result["top_stories"] as? Array<Any>
+            self.listHeaderView?.reloadScrollView(object: self.topArray!)
+        } catch {}
     }
     
     //点击头部视图

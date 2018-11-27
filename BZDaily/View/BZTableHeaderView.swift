@@ -49,15 +49,14 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         self.listScroll?.showsVerticalScrollIndicator = false
         self.addSubview(self.listScroll!)
         
-        
-        self.pageControl = UIPageControl.init()
-        self.addSubview(self.pageControl!)
-        
         self.bottomLayer = CAGradientLayer.init()
         self.bottomLayer?.startPoint = CGPoint.init(x: 0.5, y: 0)
         self.bottomLayer?.endPoint = CGPoint.init(x: 0.5, y: 1)
-        self.bottomLayer?.colors = [UIColor.clear.cgColor,UIColor.black.withAlphaComponent(0.3).cgColor]
+        self.bottomLayer?.colors = [UIColor.clear.cgColor,UIColor.black.withAlphaComponent(0.5).cgColor]
         self.layer.addSublayer(self.bottomLayer!)
+        
+        self.pageControl = UIPageControl.init()
+        self.addSubview(self.pageControl!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -155,21 +154,6 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         
     }
     
-    public func transformBackImage(frame : CGRect) {
-        
-//        self.timer?.invalidate()
-//        let value = offset / 100.0
-//        self.listScroll?.transform = CGAffineTransform.init(scaleX: 1, y: value)
-
-//        self.listScroll?.yoga.markDirty()
-//        self.listScroll?.yoga.top = YGValue.init(integerLiteral: 0)
-//        
-//        self.pageControl?.yoga.markDirty()
-//        self.pageControl?.yoga.bottom = YGValue.init(integerLiteral: 0)
-//        self.yoga.applyLayout(preservingOrigin: true)
-        
-    }
-    
     //UIScrollView Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -195,5 +179,19 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
             self.delegate?.didClickHeaderViewWithItem(item: object)
         }
     }
+    
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        
+//        if keyPath == "contentOffset" {
+//            let point = change?[NSKeyValueChangeKey.newKey] as! CGPoint
+//            let value = -(point.y)
+//            if (value <= 100 && value >= 0) {
+//                let radio = (value / 100.0) + 1
+//                self.layer.anchorPoint = CGPoint.init(x: 100, y: 100)
+//                self.transform = CGAffineTransform.init(scaleX: radio, y: radio)
+//            }
+//            
+//        }
+//    }
     
 }

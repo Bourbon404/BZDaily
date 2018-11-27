@@ -11,12 +11,22 @@ import UIKit
 class BZCacheManager: NSObject {
     
     static public func saveObject(data : Data, key : String) -> Void {
-        
-        
+        var accountPath=NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        accountPath += "/"
+        accountPath += key
+
+        NSKeyedArchiver.archiveRootObject(data as Any, toFile: accountPath)
     }
     
-    static public func objectFromKey(key : String) -> Data {
-        
-        return Data.init()
+    static public func objectFromKey(key : String) -> Data? {
+        var accountPath=NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        accountPath += "/"
+        accountPath += key
+        let data = NSKeyedUnarchiver.unarchiveObject(withFile: accountPath)
+        if data == nil {
+            return nil
+        }
+        return (data as! Data)
+
     }
 }
