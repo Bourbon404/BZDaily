@@ -6,6 +6,7 @@ pod 'YogaKit', '~> 1.9.0'
 pod 'Alamofire', '~> 4.7.3'
 pod 'YYModel', '~> 1.0.4'
 pod 'SDWebImage', '~> 5.0.0-beta2'
+pod 'SVProgressHUD', '~> 2.2.5'
 #pod 'SwiftyJSON', '~> 4.1.0'
 #pod 'ObjectMapper', '~> 3.3.0'
 target 'BZDaily' do

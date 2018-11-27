@@ -11,6 +11,7 @@ import YogaKit
 import WebKit
 import SDWebImage
 import Alamofire
+import SVProgressHUD
 class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigationDelegate {
 
     var toolBar : BZToolBarView?
@@ -72,6 +73,10 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        //show  hud
+        SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.dark)
+        SVProgressHUD.show()
         
         //content data
         self.reloadContentData()
@@ -154,7 +159,7 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
         let contentOffset = scrollView.contentOffset
         
         //控制状态栏
-        if contentOffset.y <= 200 {
+        if contentOffset.y <=  (200 - (UIApplication.shared.keyWindow?.safeAreaInsets.top)!) {
             
             UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
             self.statusBarView?.backgroundColor = UIColor.clear
@@ -260,5 +265,6 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
     //webview Delegate
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.iconView?.isHidden = false
+        SVProgressHUD.dismiss()
     }
 }

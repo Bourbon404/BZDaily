@@ -20,6 +20,7 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
     var timer : Timer?
     var allItem : Array<Any>?
     var delegate : BZTableHeaderViewDelegate?
+    var bottomLayer : CAGradientLayer?
     
     
     /*
@@ -52,6 +53,11 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         self.pageControl = UIPageControl.init()
         self.addSubview(self.pageControl!)
         
+        self.bottomLayer = CAGradientLayer.init()
+        self.bottomLayer?.startPoint = CGPoint.init(x: 0.5, y: 0)
+        self.bottomLayer?.endPoint = CGPoint.init(x: 0.5, y: 1)
+        self.bottomLayer?.colors = [UIColor.clear.cgColor,UIColor.black.withAlphaComponent(0.3).cgColor]
+        self.layer.addSublayer(self.bottomLayer!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,6 +87,9 @@ class BZTableHeaderView: UIView, UIScrollViewDelegate {
         
         self.yoga.isEnabled = true
         self.yoga.applyLayout(preservingOrigin: true)
+        
+        self.bottomLayer?.frame = CGRect.init(x: 0, y: self.frame.size.height - 100, width: (UIApplication.shared.keyWindow?.frame.size.width)!, height: 100)
+
     }
     
     func addSubView(url: URL, title:String, tag:Int) -> Void {
