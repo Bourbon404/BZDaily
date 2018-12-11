@@ -2,7 +2,7 @@
 //  BZToolBarView.swift
 //  BZDaily
 //
-//  Created by 郑伟 on 2018/11/9.
+//  Created by BourbonZ on 2018/11/9.
 //  Copyright © 2018 BourbonZ. All rights reserved.
 //
 
@@ -61,7 +61,7 @@ class BZToolBarView: UIView {
         self.commentLabel?.textColor = UIColor.white
         self.commentLabel?.font = UIFont.systemFont(ofSize: 8)
         self.commentLabel?.textAlignment = NSTextAlignment.center
-        self.commentLabel?.backgroundColor = UIColor.blue
+        self.commentLabel?.backgroundColor = UIColor.init(red: 80/255.0, green: 141/255.0, blue: 210/255.0, alpha: 1)
         self.commentButton?.addSubview(self.commentLabel!)
     }
     

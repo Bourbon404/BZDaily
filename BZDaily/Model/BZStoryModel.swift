@@ -2,7 +2,7 @@
 //  BZStoryModel.swift
 //  BZDaily
 //
-//  Created by 郑伟 on 2018/10/27.
+//  Created by BourbonZ on 2018/10/27.
 //  Copyright © 2018 BourbonZ. All rights reserved.
 //
 

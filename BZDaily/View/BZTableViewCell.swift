@@ -2,7 +2,7 @@
 //  BZTableViewCell.swift
 //  BZDaily
 //
-//  Created by 郑伟 on 2018/10/26.
+//  Created by BourbonZ on 2018/10/26.
 //  Copyright © 2018 BourbonZ. All rights reserved.
 //
 
@@ -79,7 +79,7 @@ class BZTableViewCell: UITableViewCell {
             layout.left = YGValue.init(integerLiteral: 10)
             layout.marginTop = YGValue.init(integerLiteral: 15)
             layout.alignSelf = YGAlign.flexStart
-            layout.marginRight = YGValue.init(integerLiteral: 90)
+            layout.marginRight = YGValue.init(integerLiteral: 110)
         })
 
         self.contentView.configureLayout { (layout) in

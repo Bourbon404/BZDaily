@@ -2,7 +2,7 @@
 //  BZStoryViewController.swift
 //  BZDaily
 //
-//  Created by 郑伟 on 2018/11/9.
+//  Created by BourbonZ on 2018/11/9.
 //  Copyright © 2018 BourbonZ. All rights reserved.
 //
 
@@ -23,6 +23,9 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
     
     public var storyID : String?
     
+    deinit {
+
+    }
     
     override func loadView() {
         super.loadView()
@@ -266,5 +269,24 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.iconView?.isHidden = false
         SVProgressHUD.dismiss()
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        
+        let requestURL = webView.url
+        if (requestURL?.host?.contains("zhihu.com"))! {
+            print("截获到知乎链接" + (requestURL?.absoluteString)!)
+            
+        } else {
+            print("截获到其他链接" + (requestURL?.absoluteString)!)
+            
+            if (UIApplication.shared.canOpenURL(requestURL!)) {
+                UIApplication.shared.open(requestURL!, options: [:]) { (result) in
+                    
+                }
+            }
+        }
+        decisionHandler(WKNavigationResponsePolicy.cancel)
+
     }
 }

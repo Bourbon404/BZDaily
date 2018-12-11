@@ -2,7 +2,7 @@
 //  BZProgressCircleView.swift
 //  BZDaily
 //
-//  Created by 郑伟 on 2018/11/8.
+//  Created by BourbonZ on 2018/11/8.
 //  Copyright © 2018 BourbonZ. All rights reserved.
 //
 
