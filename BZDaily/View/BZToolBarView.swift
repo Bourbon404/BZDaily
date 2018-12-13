@@ -8,6 +8,30 @@
 
 import UIKit
 import YogaKit
+
+/// 按钮类型
+///
+/// - back: 返回
+/// - next: 下一个
+/// - nice: 点赞
+/// - share: 分享
+/// - comment: 评论
+enum ToolBarButtonType {
+    case back
+    case next
+    case nice
+    case share
+    case comment
+}
+
+protocol BZToolBarViewDelegate {
+    
+    /// 点击工具栏按钮
+    ///
+    /// - Parameter buttonType: 按钮类型
+    func didClickButtonWithType(buttonType: ToolBarButtonType)
+}
+
 class BZToolBarView: UIView {
 
     var backButton : UIButton?
@@ -18,6 +42,8 @@ class BZToolBarView: UIView {
     
     var niceLabel : UILabel?
     var commentLabel : UILabel?
+    
+    public var delegate : BZToolBarViewDelegate?
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -44,6 +70,9 @@ class BZToolBarView: UIView {
         self.niceButton = self.createButton(iconName: "dianzan")
         self.shareButton = self.createButton(iconName: "fenxiang")
         self.commentButton = self.createButton(iconName: "pinglun")
+        
+        self.backButton?.addTarget(self, action: #selector(clickBackButton), for: UIControl.Event.touchUpInside)
+        self.shareButton?.addTarget(self, action: #selector(clickShareButton), for: UIControl.Event.touchUpInside)
         
         self.addSubview(self.backButton!)
         self.addSubview(self.nextButton!)
@@ -130,6 +159,7 @@ class BZToolBarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //method
     public func reloadCount(niceCount : String, commentCount : String) -> Void {
         self.niceLabel?.text = niceCount
         self.commentLabel?.text = commentCount
@@ -137,4 +167,14 @@ class BZToolBarView: UIView {
         self.commentLabel?.sizeToFit()
     }
     
+    //点击分享按钮
+    @objc func clickShareButton() -> Void {
+        
+        self.delegate?.didClickButtonWithType(buttonType: ToolBarButtonType.share)
+    }
+    
+    //点击返回按钮
+    @objc func clickBackButton() -> Void {
+        self.delegate?.didClickButtonWithType(buttonType: ToolBarButtonType.back)
+    }
 }

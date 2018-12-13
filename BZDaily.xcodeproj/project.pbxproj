@@ -32,6 +32,7 @@
 		9FA5517C219478E7003012C0 /* BZProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5517B219478E7003012C0 /* BZProgressCircleView.swift */; };
 		9FD929DD219C3BE200C70683 /* BZLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD929DC219C3BE200C70683 /* BZLoginManager.swift */; };
 		9FD929DF219C3E9E00C70683 /* BZUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD929DE219C3E9E00C70683 /* BZUser.swift */; };
+		9FFCE76621BF965300353F65 /* BZShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCE76521BF965300353F65 /* BZShareViewController.swift */; };
 		D8B037C567CBEF86DFD2E44F /* Pods_BZDaily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF0A0442D6AB2F9A40F7E81 /* Pods_BZDaily.framework */; };
 		E718C9A9A451C4D419BD743C /* Pods_BZDailyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F47D82C175BAE014D5C07835 /* Pods_BZDailyUITests.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,7 @@
 		9FA5517B219478E7003012C0 /* BZProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZProgressCircleView.swift; sourceTree = "<group>"; };
 		9FD929DC219C3BE200C70683 /* BZLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZLoginManager.swift; sourceTree = "<group>"; };
 		9FD929DE219C3E9E00C70683 /* BZUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZUser.swift; sourceTree = "<group>"; };
+		9FFCE76521BF965300353F65 /* BZShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BZShareViewController.swift; sourceTree = "<group>"; };
 		ACF0A0442D6AB2F9A40F7E81 /* Pods_BZDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BZDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C655C42E5152A5E8400FE02B /* Pods-BZDailyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BZDailyUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BZDailyUITests/Pods-BZDailyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CD46363C87A83F53C5B62991 /* Pods_BZDailyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BZDailyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +211,7 @@
 			children = (
 				9F980570218327FD00F2A51F /* BZListViewController.swift */,
 				9F11C63B2195B279005EB7FC /* BZStoryViewController.swift */,
+				9FFCE76521BF965300353F65 /* BZShareViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				9F980571218327FD00F2A51F /* BZListViewController.swift in Sources */,
 				9F11C63E2195B291005EB7FC /* BZToolBarView.swift in Sources */,
 				9F9805922183794200F2A51F /* BZTopModel.swift in Sources */,
+				9FFCE76621BF965300353F65 /* BZShareViewController.swift in Sources */,
 				9FA5517C219478E7003012C0 /* BZProgressCircleView.swift in Sources */,
 				9F9805742183283700F2A51F /* BZView.swift in Sources */,
 				9F9805852183318500F2A51F /* BZTableHeaderView.swift in Sources */,

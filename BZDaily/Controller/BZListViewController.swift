@@ -75,14 +75,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         if (cacheData != nil) {
             self.configData(data: cacheData! as Data)
         } else {
-            Alamofire.request(listURL).responseJSON(queue: DispatchQueue.main, options: JSONSerialization.ReadingOptions.allowFragments) { (response) in
-                response.result.ifSuccess {
-                    
-                    self.configData(data: response.data!)
-                    self.addObserver()
-                    BZCacheManager.saveObject(data: response.data!, key: "latest")
-                }
-            }
+            self.requestStoryList(listURL: listURL, localArray: Array.init())
         }
     }
     
@@ -132,9 +125,7 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
     //observer
     func addObserver() -> Void {
         self.listTable?.addObserver(self.naviView!, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
-//        self.listTable?.addObserver(self.listHeaderView!, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
     }
-    
     
     //datasource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -225,6 +216,17 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
             let array = result["stories"]
             let dateString = result["date"] as! String
             
+            //判断两个时间是否是同一天
+            let currentDate = Date.init()
+            let formatter = DateFormatter.init()
+            formatter.dateFormat = "yyyyMMdd"
+            let currentDateString = formatter.string(from: currentDate)
+            if currentDateString.elementsEqual(dateString) {
+                //在同一天
+            } else {
+                //不在同一天
+            }
+            
             self.listDict?.updateValue(array as Any, forKey: dateString)
             self.listTable?.reloadData()
             
@@ -241,5 +243,21 @@ class BZListViewController: UIViewController , UITableViewDelegate, UITableViewD
         storyController.navigationController?.isNavigationBarHidden = true
         storyController.storyID = (object["id"] as! NSNumber).stringValue
         self.navigationController?.pushViewController(storyController, animated: true)
+    }
+    
+    /// 请求列表数据
+    ///
+    /// - Parameters:
+    ///   - listURL: 请求地址
+    ///   - localArray: 需要追加的数据
+    func requestStoryList(listURL: String, localArray: Array<Any>) -> Void {
+        Alamofire.request(listURL).responseJSON(queue: DispatchQueue.main, options: JSONSerialization.ReadingOptions.allowFragments) { (response) in
+            response.result.ifSuccess {
+                
+                self.configData(data: response.data!)
+                self.addObserver()
+                BZCacheManager.saveObject(data: response.data!, key: "latest")
+            }
+        }
     }
 }

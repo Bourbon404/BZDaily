@@ -12,7 +12,7 @@ import WebKit
 import SDWebImage
 import Alamofire
 import SVProgressHUD
-class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigationDelegate {
+class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigationDelegate, BZToolBarViewDelegate {
 
     var toolBar : BZToolBarView?
     var webview : WKWebView?
@@ -61,14 +61,12 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
         self.iconView?.addSubview(self.authorLabel!)
         
         self.toolBar = BZToolBarView.init(frame: CGRect.zero)
+        self.toolBar!.delegate = self
         self.view.addSubview(self.toolBar!)
         
         self.statusBarView = UIView.init()
         self.statusBarView?.backgroundColor = UIColor.clear
         self.view.addSubview(self.statusBarView!)
-        
-        
-        self.toolBar?.backButton?.addTarget(self, action: #selector(clickBackAction), for: UIControl.Event.touchUpInside)
         
     }
     
@@ -260,11 +258,6 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
         }
     }
     
-    //action
-    @objc func clickBackAction() -> Void {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     //webview Delegate
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.iconView?.isHidden = false
@@ -289,4 +282,15 @@ class BZStoryViewController: UIViewController , UIScrollViewDelegate,WKNavigatio
         decisionHandler(WKNavigationResponsePolicy.cancel)
 
     }
+
+    //toolbar action
+    func didClickButtonWithType(buttonType: ToolBarButtonType) {
+        if buttonType == ToolBarButtonType.back {
+            self.navigationController?.popViewController(animated: true)
+        } else if buttonType == ToolBarButtonType.share {
+            let shareController = BZShareViewController.init()
+            self.navigationController?.present(shareController, animated: false, completion: nil)
+        }
+    }
+    
 }
